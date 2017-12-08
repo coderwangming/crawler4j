@@ -78,6 +78,7 @@ public class Page {
     protected String contentEncoding;
 
     /**
+     * 内容的字符集格式
      * The charset of the content.
      * For example: "UTF-8"
      */
@@ -99,6 +100,7 @@ public class Page {
     protected ParseData parseData;
 
     /**
+     * 表示内容是否被删节，因为所接受的数据超过了最大值
      * Whether the content was truncated because the received data exceeded the imposed maximum
      */
     protected boolean truncated = false;
@@ -108,12 +110,13 @@ public class Page {
     }
 
     /**
+     * 读取一个指定最大值的entity。这个方法是EntityUtils.toByteArray的替代，因为后者么哦有指定最大值。
      * Read contents from an entity, with a specified maximum. This is a replacement of
      * EntityUtils.toByteArray because that function does not impose a maximum size.
      *
-     * @param entity The entity from which to read
-     * @param maxBytes The maximum number of bytes to read
-     * @return A byte array containing maxBytes or fewer bytes read from the entity
+     * @param entity The entity from which to read  说要读取的entity
+     * @param maxBytes The maximum number of bytes to read  读取的最大字节
+     * @return A byte array containing maxBytes or fewer bytes read from the entity 从entity中读取的字节
      *
      * @throws IOException Thrown when reading fails for any reason
      */
@@ -178,6 +181,7 @@ public class Page {
         try {
             charset = ContentType.getOrDefault(entity).getCharset();
         } catch (Exception e) {
+            //如果从entity中解析charset失败，则设置字符集为utf-8格式
             logger.warn("parse charset failed: {}", e.getMessage());
             charset = Charset.forName("UTF-8");
         }

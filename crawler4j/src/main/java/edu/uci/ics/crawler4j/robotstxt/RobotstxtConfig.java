@@ -17,6 +17,9 @@
 
 package edu.uci.ics.crawler4j.robotstxt;
 
+/**
+ * 机器人配置类实体
+ */
 public class RobotstxtConfig {
 
     /**

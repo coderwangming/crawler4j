@@ -18,6 +18,7 @@
 package edu.uci.ics.crawler4j.crawler;
 
 /**
+ *crawler4j的核心组件，继承此类可以使其“可配置”
  * Several core components of crawler4j extend this class
  * to make them configurable.
  *

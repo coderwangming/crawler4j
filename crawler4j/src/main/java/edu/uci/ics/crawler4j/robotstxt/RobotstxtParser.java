@@ -32,12 +32,15 @@ import org.slf4j.LoggerFactory;
  */
 public class RobotstxtParser {
     private static final Logger logger = LoggerFactory.getLogger(RobotstxtParser.class);
+
     private static final Pattern RULE_PATTERN = Pattern.compile("(?i)^([A-Za-z\\-]+):(.*)");
+
     private static final Set<String> VALID_RULES = new HashSet<String>(
         Arrays.asList("allow", "disallow", "user-agent", "crawl-delay", "host", "sitemap"));
 
     public static HostDirectives parse(String content, RobotstxtConfig config) {
         HostDirectives directives = new HostDirectives(config);
+        //消除掉回车符后的内容
         StringTokenizer st = new StringTokenizer(content, "\n\r");
 
         Set<String> userAgents = new HashSet<String>();
@@ -46,13 +49,13 @@ public class RobotstxtParser {
         while (st.hasMoreTokens()) {
             String line = st.nextToken();
 
-            // Strip comments
+            // Strip comments 消除评论
             int commentIndex = line.indexOf('#');
             if (commentIndex > -1) {
                 line = line.substring(0, commentIndex);
             }
 
-            // remove any html markup
+            // remove any html markup去掉所有html标志.注：[^xyz]反向匹配，表示匹配除了xyz之内的任意一个字符
             line = line.replaceAll("<[^>]+>", "").trim();
             if (line.isEmpty()) {
                 continue;

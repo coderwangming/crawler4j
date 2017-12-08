@@ -3,12 +3,15 @@ package edu.uci.ics.crawler4j.parser;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 类名直译：提取url的锚节点对
+ */
 public class ExtractedUrlAnchorPair {
 
-    private String href;
-    private String anchor;
-    private String tag;
-    private Map<String, String> attributes = new HashMap<String, String>();
+    private String href;//引用
+    private String anchor;//锚节点
+    private String tag;//标志
+    private Map<String, String> attributes = new HashMap<String, String>();//属性对
 
     public String getHref() {
         return href;

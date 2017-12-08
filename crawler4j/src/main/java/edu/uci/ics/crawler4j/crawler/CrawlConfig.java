@@ -33,18 +33,21 @@ import edu.uci.ics.crawler4j.crawler.authentication.AuthInfo;
 public class CrawlConfig {
 
     /**
+     * 这个路径的文件夹用来存放爬虫抓取的中间数据，这个文件里边数据不可手动修改；
      * The folder which will be used by crawler for storing the intermediate
      * crawl data. The content of this folder should not be modified manually.
      */
     private String crawlStorageFolder;
 
     /**
+     * 是否重新开始之前停止或者崩溃的爬取，设置TRUE可能导致爬取速度变慢
      * If this feature is enabled, you would be able to resume a previously
      * stopped/crashed crawl. However, it makes crawling slightly slower
      */
     private boolean resumableCrawling = false;
 
     /**
+     * 爬虫抓取数据的深度，-1代表没有限制
      * Maximum depth of crawling For unlimited depth this parameter should be
      * set to -1
      */
@@ -63,11 +66,13 @@ public class CrawlConfig {
     private String userAgentString = "crawler4j (https://github.com/yasserg/crawler4j/)";
 
     /**
+     * 请求默认header
      * Default request header values.
      */
     private Collection<BasicHeader> defaultHeaders = new HashSet<BasicHeader>();
 
     /**
+     * 单位毫秒：将请求发送到两个主机之间的延迟
      * Politeness delay in milliseconds (delay between sending two requests to
      * the same host).
      */
@@ -79,6 +84,7 @@ public class CrawlConfig {
     private boolean includeHttpsPages = true;
 
     /**
+     * 是否爬去诸如图片、音频等二进制文件
      * Should we fetch binary content such as images, audio, ...?
      */
     private boolean includeBinaryContentInCrawling = false;
@@ -198,6 +204,8 @@ public class CrawlConfig {
     private boolean respectNoIndex = true;
 
     /**
+     * 允许用户自定义DNS解析器，比如将域名与ip绑定，相关博客：http://www.blogjava.net/yidinghe/archive/2012/11/10/391147.html
+     * 默认使用“系统默认dns解析器”
      * DNS resolver to use, #{@link SystemDefaultDnsResolver()} is default.
      */
     public void setDnsResolver(final DnsResolver dnsResolver) {

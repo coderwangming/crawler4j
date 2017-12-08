@@ -41,6 +41,7 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 import edu.uci.ics.crawler4j.url.WebURL;
 
 /**
+ * WebCrawler继承Runnable接口，被每一个爬虫线程执行
  * WebCrawler class in the Runnable class that is executed by each crawler thread.
  *
  * @author Yasser Ganjisaffar
@@ -299,6 +300,8 @@ public class WebCrawler implements Runnable {
     }
 
     /**
+     *
+     * 原始方法内容为如果连接包含“诺follow”标签则不再爬去
      * Classes that extends WebCrawler should overwrite this function to tell the
      * crawler whether the given url should be crawled or not. The following
      * default implementation indicates that all urls should be included in the crawl
@@ -345,6 +348,7 @@ public class WebCrawler implements Runnable {
     }
 
     /**
+     * 此方法对象为爬去的页面数据，继承此方法的类应该重写此方法来判定怎样处理爬取的页面
      * Classes that extends WebCrawler should overwrite this function to process
      * the content of the fetched and parsed page.
      *
@@ -356,6 +360,10 @@ public class WebCrawler implements Runnable {
         // Sub-classed should override this to add their custom functionality
     }
 
+    /**
+     * 被run调用
+     * @param curURL
+     */
     private void processPage(WebURL curURL) {
         PageFetchResult fetchResult = null;
         try {
