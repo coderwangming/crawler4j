@@ -129,14 +129,24 @@ public class CrawlController extends Configurable {
         shuttingDown = false;
     }
 
+    /**
+     * 使用抽象工厂创建WebCrawler的子类：即不同类型的爬虫
+     *      1.WebCrawler定义了visit(...)和shouldVisit(...)，决定了爬去那些网页和对网页进行的操作；
+     *      2.看下边的内部类"默认爬虫工厂"实现了此接口
+     * @param <T>
+     */
     public interface WebCrawlerFactory<T extends WebCrawler> {
         T newInstance() throws Exception;
     }
 
+    /**
+     * 默认“爬虫工厂”的实现，构造器注入爬虫类型，newInstance()获取对象；
+     * @param <T>
+     */
     private static class DefaultWebCrawlerFactory<T extends WebCrawler>
         implements WebCrawlerFactory<T> {
         final Class<T> clazz;
-
+        //构造器注入说要创建crawler的类型
         DefaultWebCrawlerFactory(Class<T> clazz) {
             this.clazz = clazz;
         }
@@ -220,11 +230,11 @@ public class CrawlController extends Configurable {
             final List<T> crawlers = new ArrayList<>();
 
             for (int i = 1; i <= numberOfCrawlers; i++) {
-                T crawler = crawlerFactory.newInstance();
+                T crawler = crawlerFactory.newInstance();//工厂模式
                 Thread thread = new Thread(crawler, "Crawler " + i);
                 crawler.setThread(thread);
                 crawler.init(i, this);
-                thread.start();
+                thread.start();//开始工作
                 crawlers.add(crawler);
                 threads.add(thread);
                 logger.info("Crawler {} started", i);

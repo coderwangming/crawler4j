@@ -5,6 +5,7 @@ import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -18,6 +19,9 @@ public class MyCrawler extends WebCrawler{
 
 //    urlStr end with the flowing postfix
     private final static Pattern FILTERS= Pattern.compile("(http://movie.mtime.com/)(\\d+)/");
+
+    public MyCrawler(Map map, Object repository) {
+    }
 
     @Override
     public boolean shouldVisit(Page referringPage, WebURL url) {
