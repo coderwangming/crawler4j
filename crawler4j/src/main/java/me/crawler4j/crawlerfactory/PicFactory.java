@@ -22,6 +22,7 @@ public class PicFactory implements CrawlController.WebCrawlerFactory{
         this.repository = repository;
     }
 
+
     @Override
     public WebCrawler newInstance() throws Exception {
         return new MyCrawler(metadata,repository);//可能工厂一般需要传参数，所以示例搞了个这个吧

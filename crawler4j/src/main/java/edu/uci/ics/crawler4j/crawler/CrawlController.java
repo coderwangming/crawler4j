@@ -145,6 +145,7 @@ public class CrawlController extends Configurable {
      */
     private static class DefaultWebCrawlerFactory<T extends WebCrawler>
         implements WebCrawlerFactory<T> {
+        //此工厂创建的爬虫类型
         final Class<T> clazz;
         //构造器注入说要创建crawler的类型
         DefaultWebCrawlerFactory(Class<T> clazz) {
@@ -173,6 +174,7 @@ public class CrawlController extends Configurable {
      * @param <T> Your class extending WebCrawler
      */
     public <T extends WebCrawler> void start(Class<T> clazz, int numberOfCrawlers) {
+        //传参进另一个start方法，参数分别是“指定爬虫类型的”工厂，爬虫数量，isBlocking=true
         this.start(new DefaultWebCrawlerFactory<>(clazz), numberOfCrawlers, true);
     }
 
@@ -230,19 +232,24 @@ public class CrawlController extends Configurable {
             final List<T> crawlers = new ArrayList<>();
 
             for (int i = 1; i <= numberOfCrawlers; i++) {
-                T crawler = crawlerFactory.newInstance();//工厂模式
-                Thread thread = new Thread(crawler, "Crawler " + i);
-                crawler.setThread(thread);
-                crawler.init(i, this);
+                T crawler = crawlerFactory.newInstance();//工厂模式:创建一个指定类型的爬虫对象
+                Thread thread = new Thread(crawler, "Crawler " + i);//为线程注入Runnable的实现，并设置命名
+
+                //为“线程”注入参数后，还有以下两步使用线程“初始化”爬虫对象；
+                crawler.setThread(thread);//告诉爬虫对象其所运行的线程对象是thread
+                crawler.init(i, this);//用线程序列和执行爬虫WebCrawler子类的controller对象初始化爬虫类；
+
                 thread.start();//开始工作
-                crawlers.add(crawler);
-                threads.add(thread);
+
+                crawlers.add(crawler);//工作的爬虫序列
+                threads.add(thread);//工作的线程序列
                 logger.info("Crawler {} started", i);
             }
 
             final CrawlController controller = this;
             final CrawlConfig config = this.getConfig();
 
+            //todo 监视器线程
             Thread monitorThread = new Thread(new Runnable() {
 
                 @Override
