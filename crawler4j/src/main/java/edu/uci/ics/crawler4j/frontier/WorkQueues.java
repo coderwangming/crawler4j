@@ -35,22 +35,26 @@ import edu.uci.ics.crawler4j.util.Util;
  * @author Yasser Ganjisaffar
  */
 public class WorkQueues {
+    //数据库句柄
     private final Database urlsDB;
+    //数据库环境，包括缓存、事务、日志以及锁的支持。
     private final Environment env;
-
+    //是否可恢复
     private final boolean resumable;
-
+    //webURL元组绑定
     private final WebURLTupleBinding webURLBinding;
-
+    //互斥体
     protected final Object mutex = new Object();
 
     public WorkQueues(Environment env, String dbName, boolean resumable) {
+        //构造参数注入值
         this.env = env;
         this.resumable = resumable;
+        //初始化
         DatabaseConfig dbConfig = new DatabaseConfig();
         dbConfig.setAllowCreate(true);
-        dbConfig.setTransactional(resumable);
-        dbConfig.setDeferredWrite(!resumable);
+        dbConfig.setTransactional(resumable);//是否开启事务
+        dbConfig.setDeferredWrite(!resumable);//是否延迟撰写
         urlsDB = env.openDatabase(null, dbName, dbConfig);
         webURLBinding = new WebURLTupleBinding();
     }

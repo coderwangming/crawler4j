@@ -138,16 +138,19 @@ public class CrawlConfig {
     private boolean onlineTldListUpdate = false;
 
     /**
+     * TODO 当XX队列为空时，爬虫线程是否应该停止
      * Should the crawler stop running when the queue is empty?
      */
     private boolean shutdownOnEmptyQueue = true;
 
     /**
+     * 在检查工作线程执勤啊等待指定时间，单位秒
      * Wait this long before checking the status of the worker threads.
      */
     private int threadMonitoringDelaySeconds = 10;
 
     /**
+     * 等待这么长时间已核实线程的确停止了工作
      * Wait this long to verify the craweler threads are finished working.
      */
     private int threadShutdownDelaySeconds = 10;

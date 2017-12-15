@@ -64,6 +64,7 @@ public class CrawlController extends Configurable {
     protected boolean finished;
 
     /**
+     * 爬去的session值是否设置成了“shutdown”，爬虫线程会监视这个值，如果TRUE则爬虫停止工作。
      * Is the crawling session set to 'shutdown'. Crawler threads monitor this
      * flag and when it is set they will no longer process new pages.
      */
@@ -71,7 +72,7 @@ public class CrawlController extends Configurable {
 
     protected PageFetcher pageFetcher;
     protected RobotstxtServer robotstxtServer;
-    protected Frontier frontier;
+    protected Frontier frontier;//前沿，边界
     protected DocIDServer docIdServer;
 
     protected final Object waitingLock = new Object();
@@ -249,7 +250,7 @@ public class CrawlController extends Configurable {
             final CrawlController controller = this;
             final CrawlConfig config = this.getConfig();
 
-            //todo 监视器线程
+            //监视器线程，没看懂
             Thread monitorThread = new Thread(new Runnable() {
 
                 @Override
@@ -260,10 +261,11 @@ public class CrawlController extends Configurable {
                             while (true) {
                                 sleep(config.getThreadMonitoringDelaySeconds());
                                 boolean someoneIsWorking = false;
-                                for (int i = 0; i < threads.size(); i++) {
+                                for (int i = 0; i < threads.size(); i++) {//遍历工作的线程
                                     Thread thread = threads.get(i);
-                                    if (!thread.isAlive()) {
-                                        if (!shuttingDown) {
+                                    if (!thread.isAlive()) {//如果线程处于“存活”状态
+                                        if (!shuttingDown) {//标识为TRUE则爬虫程序停止工作。
+                                            //新建停止工作的爬虫线程，并将原始线程移除，其位置放进新线程
                                             logger.info("Thread {} was dead, I'll recreate it", i);
                                             T crawler = crawlerFactory.newInstance();
                                             thread = new Thread(crawler, "Crawler " + (i + 1));
@@ -275,15 +277,14 @@ public class CrawlController extends Configurable {
                                             crawlers.remove(i);
                                             crawlers.add(i, crawler);
                                         }
-                                    } else if (crawlers.get(i).isNotWaitingForNewURLs()) {
+                                    } else if (crawlers.get(i).isNotWaitingForNewURLs()) {//爬虫没有在等待URLs
                                         someoneIsWorking = true;
                                     }
                                 }
+                                //isShutdownOnEmptyQueue：XX队列为空时，爬虫线程是否应该停止
                                 boolean shutOnEmpty = config.isShutdownOnEmptyQueue();
-                                if (!someoneIsWorking && shutOnEmpty) {
-                                    // Make sure again that none of the threads
-                                    // are
-                                    // alive.
+                                if (!someoneIsWorking && shutOnEmpty) {//如果配置“XX队列为空时，爬虫线程是否应该停止”，而且没有线程在工作
+                                    // Make sure again that none of the threads are alive.
                                     logger.info(
                                         "It looks like no thread is working, waiting for " +
                                          config.getThreadShutdownDelaySeconds() +

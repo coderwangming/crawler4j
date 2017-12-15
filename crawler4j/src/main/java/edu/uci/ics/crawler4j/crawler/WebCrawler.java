@@ -94,6 +94,9 @@ public class WebCrawler implements Runnable {
     private Frontier frontier;
 
     /**
+     * 现在的爬虫实例是否在等待着新的URLs</p>
+     * 这个变量的主要作用是让CrawlerController识别是否所有爬虫实例都在等待新的
+     * URLs，如果没有URLs待爬去的话，爬虫工作便可以停了。
      * Is the current crawler instance waiting for new URLs? This field is
      * mainly used by the controller to detect whether all of the crawler
      * instances are waiting for new URLs and therefore there is no more work
@@ -266,6 +269,7 @@ public class WebCrawler implements Runnable {
         return null;
     }
 
+    //TODO 爬虫工作的代码
     @Override
     public void run() {
         onStart();
