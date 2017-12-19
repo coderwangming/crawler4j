@@ -95,6 +95,7 @@ public class Page {
     protected Header[] fetchResponseHeaders;
 
     /**
+     * 解析的网页数据
      * The parsed data populated by parsers
      */
     protected ParseData parseData;

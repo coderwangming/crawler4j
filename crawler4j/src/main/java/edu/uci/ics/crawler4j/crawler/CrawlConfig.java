@@ -126,6 +126,7 @@ public class CrawlConfig {
     private int maxDownloadSize = 1048576;
 
     /**
+     * 是否追随“重定向”的页面？？
      * Should we follow redirects?
      */
     private boolean followRedirects = true;
@@ -156,6 +157,7 @@ public class CrawlConfig {
     private int threadShutdownDelaySeconds = 10;
 
     /**
+     * 等待这么长时间在执行清理工作
      * Wait this long in seconds before launching cleanup.
      */
     private int cleanupDelaySeconds = 10;

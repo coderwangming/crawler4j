@@ -42,7 +42,7 @@ public class ImageCrawlController {
 //        }
 
         String rootFolder = "/data/crawler/image/rootFolder/";
-        int numberOfCrawlers = 7;
+        int numberOfCrawlers = 1;
         String storageFolder = "/data/crawler/image/storageFolder/";
 
         CrawlConfig config = new CrawlConfig();

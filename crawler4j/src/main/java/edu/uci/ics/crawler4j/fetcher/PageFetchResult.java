@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import edu.uci.ics.crawler4j.crawler.Page;
 
 /**
+ * 包含爬取的“状态码”、“entity”、“url“等相关数据
  * @author Yasser Ganjisaffar
  */
 public class PageFetchResult {

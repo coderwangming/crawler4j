@@ -18,6 +18,8 @@
 package edu.uci.ics.crawler4j.examples.basic;
 
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Pattern;
 
 import org.apache.http.Header;

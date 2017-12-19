@@ -71,15 +71,16 @@ import edu.uci.ics.crawler4j.url.URLCanonicalizer;
 import edu.uci.ics.crawler4j.url.WebURL;
 
 /**
+ * 页面访问者：父类有CrawlConfig及其getter和setter方法
  * @author Yasser Ganjisaffar
  */
 public class PageFetcher extends Configurable {
-    protected static final Logger logger = LoggerFactory.getLogger(PageFetcher.class);
-    protected final Object mutex = new Object();
-    protected PoolingHttpClientConnectionManager connectionManager;
-    protected CloseableHttpClient httpClient;
-    protected long lastFetchTime = 0;
-    protected IdleConnectionMonitorThread connectionMonitorThread = null;
+    protected static final Logger logger = LoggerFactory.getLogger(PageFetcher.class);//日志
+    protected final Object mutex = new Object();//互斥锁对象
+    protected PoolingHttpClientConnectionManager connectionManager;//http客户端池化连接管理器
+    protected CloseableHttpClient httpClient;//http客户端
+    protected long lastFetchTime = 0;//上一次访问的时间
+    protected IdleConnectionMonitorThread connectionMonitorThread = null;//空闲链接监视线程 todo 自定义类
 
     public PageFetcher(CrawlConfig config) {
         super(config);
@@ -87,7 +88,7 @@ public class PageFetcher extends Configurable {
         RequestConfig requestConfig = RequestConfig.custom()
                                                    .setExpectContinueEnabled(false)
                                                    .setCookieSpec(config.getCookiePolicy())
-                                                   .setRedirectsEnabled(false)
+                                                   .setRedirectsEnabled(false)//todo
                                                    .setSocketTimeout(config.getSocketTimeout())
                                                    .setConnectTimeout(config.getConnectionTimeout())
                                                    .build();

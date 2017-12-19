@@ -42,7 +42,7 @@ public class Frontier extends Configurable {
 
     protected InProcessPagesDB inProcessPages;
 
-    protected final Object mutex = new Object();
+    protected final Object mutex = new Object();//Ëø¶ÔÏó
     protected final Object waitingList = new Object();
 
     protected boolean isFinished = false;
@@ -124,6 +124,11 @@ public class Frontier extends Configurable {
         }
     }
 
+    /**
+     *
+     * @param max
+     * @param result
+     */
     public void getNextURLs(int max, List<WebURL> result) {
         while (true) {
             synchronized (mutex) {

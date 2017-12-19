@@ -51,6 +51,7 @@ public class WebCrawler implements Runnable {
     protected static final Logger logger = LoggerFactory.getLogger(WebCrawler.class);
 
     /**
+     * 与运行此实例想噶是你的爬虫线程相关的id
      * The id associated to the crawler thread running this instance
      */
     protected int myId;
@@ -63,6 +64,7 @@ public class WebCrawler implements Runnable {
     protected CrawlController myController;
 
     /**
+     * 此爬虫实例运行的线程
      * The thread within which this crawler instance is running.
      */
     private Thread myThread;
@@ -106,10 +108,10 @@ public class WebCrawler implements Runnable {
 
     /**
      * Initializes the current instance of the crawler
-     *
-     * @param id
+     * 初始化现在的爬虫实例
+     * @param id  爬虫实例的id，也是开启的线程的序号
      *            the id of this crawler instance
-     * @param crawlController
+     * @param crawlController   管理这次爬虫会话的控制器
      *            the controller that manages this crawling session
      * @throws IllegalAccessException
      * @throws InstantiationException
@@ -177,7 +179,7 @@ public class WebCrawler implements Runnable {
      * This function is called before processing of the page's URL
      * It can be overridden by subclasses for tweaking of the url before processing it.
      * For example, http://abc.com/def?a=123 - http://abc.com/def
-     *
+     * 使用url之前先处理他，比如去掉查询参数
      * @param curURL current URL which can be tweaked before processing
      * @return tweaked WebURL
      */
@@ -272,9 +274,9 @@ public class WebCrawler implements Runnable {
     //TODO 爬虫工作的代码
     @Override
     public void run() {
-        onStart();
+        onStart();//爬虫工作之前调用，可以重写此方法，然后进行一些自己的“前置设置”
         while (true) {
-            List<WebURL> assignedURLs = new ArrayList<>(50);
+            List<WebURL> assignedURLs = new ArrayList<>(50);//根据种子地址找到的url地址
             isWaitingForNewURLs = true;
             frontier.getNextURLs(50, assignedURLs);
             isWaitingForNewURLs = false;
@@ -288,7 +290,7 @@ public class WebCrawler implements Runnable {
                     logger.error("Error occurred", e);
                 }
             } else {
-                for (WebURL curURL : assignedURLs) {
+                for (WebURL curURL : assignedURLs) {//遍历url
                     if (myController.isShuttingDown()) {
                         logger.info("Exiting because of controller shutdown.");
                         return;

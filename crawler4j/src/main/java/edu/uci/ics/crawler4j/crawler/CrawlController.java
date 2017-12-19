@@ -53,12 +53,14 @@ public class CrawlController extends Configurable {
     protected Object customData;
 
     /**
+     * 一旦爬取线程结束，控制器收集爬虫线程的本地数据并将它们存放在此List中
      * Once the crawling session finishes the controller collects the local data
      * of the crawler threads and stores them in this List.
      */
     protected List<Object> crawlersLocalData = new ArrayList<>();
 
     /**
+     * 这次会话保持的爬取是否结束
      * Is the crawling of this session finished?
      */
     protected boolean finished;
@@ -69,7 +71,7 @@ public class CrawlController extends Configurable {
      * flag and when it is set they will no longer process new pages.
      */
     protected boolean shuttingDown;
-
+    //fixme PageFetcher、RobotstxtServer、Frontier、DocIDServer是CrawlController中的一个元素
     protected PageFetcher pageFetcher;
     protected RobotstxtServer robotstxtServer;
     protected Frontier frontier;//前沿，边界
@@ -227,10 +229,10 @@ public class CrawlController extends Configurable {
     protected <T extends WebCrawler> void start(final WebCrawlerFactory<T> crawlerFactory,
                                                 final int numberOfCrawlers, boolean isBlocking) {
         try {
-            finished = false;
-            crawlersLocalData.clear();
-            final List<Thread> threads = new ArrayList<>();
-            final List<T> crawlers = new ArrayList<>();
+            finished = false;//表示是否结束这次“会话”保持的爬取任务
+            crawlersLocalData.clear();//存放爬虫线程存放本地数据的List类型对象
+            final List<Thread> threads = new ArrayList<>();//存放开启的线程的list
+            final List<T> crawlers = new ArrayList<>();//工作的爬虫序列
 
             for (int i = 1; i <= numberOfCrawlers; i++) {
                 T crawler = crawlerFactory.newInstance();//工厂模式:创建一个指定类型的爬虫对象
@@ -364,10 +366,11 @@ public class CrawlController extends Configurable {
     }
 
     /**
+     * 等待直到此次爬取会话结束
      * Wait until this crawling session finishes.
      */
     public void waitUntilFinish() {
-        while (!finished) {
+        while (!finished) {//   ！这次会话保持的爬取是否结束
             synchronized (waitingLock) {
                 if (finished) {
                     return;
