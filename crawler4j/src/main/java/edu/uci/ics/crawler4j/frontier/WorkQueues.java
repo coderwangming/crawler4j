@@ -63,22 +63,37 @@ public class WorkQueues {
         return resumable ? env.beginTransaction(null, null) : null;
     }
 
+    /**
+     * 调用Transaction的commit()方法，前边加个判空
+     * @param tnx
+     */
     protected static void commit(Transaction tnx) {
         if (tnx != null) {
             tnx.commit();
         }
     }
 
+    /**
+     * 打开关联此数据库的游标
+     * @param txn
+     * @return
+     */
     protected Cursor openCursor(Transaction txn) {
         return urlsDB.openCursor(txn, null);
     }
 
+    /**
+     *
+     * @param max
+     * @return
+     */
     public List<WebURL> get(int max) {
         synchronized (mutex) {
             List<WebURL> results = new ArrayList<>(max);
             DatabaseEntry key = new DatabaseEntry();
             DatabaseEntry value = new DatabaseEntry();
             Transaction txn = beginTransaction();
+
             try (Cursor cursor = openCursor(txn)) {
                 OperationStatus result = cursor.getFirst(key, value, null);
                 int matches = 0;

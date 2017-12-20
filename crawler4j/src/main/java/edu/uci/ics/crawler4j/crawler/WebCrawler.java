@@ -278,7 +278,7 @@ public class WebCrawler implements Runnable {
         while (true) {
             List<WebURL> assignedURLs = new ArrayList<>(50);//根据种子地址找到的url地址
             isWaitingForNewURLs = true;
-            frontier.getNextURLs(50, assignedURLs);
+            frontier.getNextURLs(50, assignedURLs);//加锁方法
             isWaitingForNewURLs = false;
             if (assignedURLs.isEmpty()) {
                 if (frontier.isFinished()) {

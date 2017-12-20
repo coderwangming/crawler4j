@@ -126,8 +126,8 @@ public class Frontier extends Configurable {
 
     /**
      *
-     * @param max
-     * @param result
+     * @param max 存放其他urls的链表容量
+     * @param result 根据种子url找到的其他urls
      */
     public void getNextURLs(int max, List<WebURL> result) {
         while (true) {
@@ -136,7 +136,7 @@ public class Frontier extends Configurable {
                     return;
                 }
                 try {
-                    List<WebURL> curResults = workQueues.get(max);
+                    List<WebURL> curResults = workQueues.get(max);//get也是加锁方法
                     workQueues.delete(curResults.size());
                     if (inProcessPages != null) {
                         for (WebURL curPage : curResults) {
