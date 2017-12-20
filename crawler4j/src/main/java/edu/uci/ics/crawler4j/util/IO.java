@@ -23,21 +23,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 工具类：删除文件夹和文件
  * @author Yasser Ganjisaffar
  */
 public class IO {
     private static final Logger logger = LoggerFactory.getLogger(IO.class);
 
+    /**
+     * 删除文件夹
+     * @param folder 被删除的文件夹
+     * @return  文件夹是否被删除
+     */
     public static boolean deleteFolder(File folder) {
+        //删除文件夹里边内容并且删除文件夹
         return deleteFolderContents(folder) && folder.delete();
     }
 
+    /**
+     * 删除文件夹里边内容
+     * @param folder 删除内容所在的文件夹
+     * @return
+     */
     public static boolean deleteFolderContents(File folder) {
         logger.debug("Deleting content of: " + folder.getAbsolutePath());
         File[] files = folder.listFiles();
         for (File file : files) {
             if (file.isFile()) {
-                if (!file.delete()) {
+                if (!file.delete()) {//删除失败，则返回FALSE
                     return false;
                 }
             } else {

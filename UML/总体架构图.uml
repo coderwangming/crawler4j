@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>edu.uci.ics.crawler4j.crawler.WebCrawler</OriginalElement>
+  <nodes>
+    <node x="3161.1529839817854" y="96.0">edu.uci.ics.crawler4j.url.WebURL</node>
+    <node x="68.34472817950427" y="906.0">edu.uci.ics.crawler4j.frontier.DocIDServer</node>
+    <node x="1465.341666666667" y="584.0">edu.uci.ics.crawler4j.fetcher.IdleConnectionMonitorThread</node>
+    <node x="3209.9416666666666" y="1238.0">edu.uci.ics.crawler4j.crawler.WebCrawler</node>
+    <node x="2537.841666666667" y="418.0">edu.uci.ics.crawler4j.robotstxt.UserAgentDirectives</node>
+    <node x="3871.8882780994322" y="418.0">edu.uci.ics.crawler4j.parser.TextParseData</node>
+    <node x="3284.961394846171" y="418.0">edu.uci.ics.crawler4j.crawler.Page</node>
+    <node x="716.0916666666669" y="584.0">edu.uci.ics.crawler4j.crawler.Configurable</node>
+    <node x="2723.4316870488246" y="584.0">edu.uci.ics.crawler4j.robotstxt.HostDirectives</node>
+    <node x="660.8833333333337" y="1072.0">edu.uci.ics.crawler4j.crawler.CrawlController</node>
+    <node x="3606.129901960784" y="418.0">edu.uci.ics.crawler4j.parser.BinaryParseData</node>
+    <node x="391.96666666666715" y="584.0">edu.uci.ics.crawler4j.frontier.InProcessPagesDB</node>
+    <node x="1092.552983981785" y="302.0">edu.uci.ics.crawler4j.crawler.authentication.AuthInfo</node>
+    <node x="0.0" y="302.0">edu.uci.ics.crawler4j.frontier.WebURLTupleBinding</node>
+    <node x="679.7166666666669" y="418.0">edu.uci.ics.crawler4j.crawler.CrawlConfig</node>
+    <node x="1154.841666666667" y="418.0">edu.uci.ics.crawler4j.crawler.authentication.BasicAuthInfo</node>
+    <node x="2586.841666666667" y="302.0">edu.uci.ics.crawler4j.robotstxt.PathRule</node>
+    <node x="3733.1799019607843" y="1072.0">edu.uci.ics.crawler4j.parser.Parser</node>
+    <node x="4339.814748687668" y="906.0">edu.uci.ics.crawler4j.parser.NotAllowedContentException</node>
+    <node x="1368.841666666667" y="418.0">edu.uci.ics.crawler4j.crawler.authentication.NtAuthInfo</node>
+    <node x="218.96666666666715" y="750.0">edu.uci.ics.crawler4j.frontier.Counters</node>
+    <node x="3589.3735722170795" y="906.0">edu.uci.ics.crawler4j.parser.HtmlContentHandler</node>
+    <node x="2943.4316870488246" y="584.0">edu.uci.ics.crawler4j.fetcher.PageFetchResult</node>
+    <node x="4089.8882780994322" y="418.0">edu.uci.ics.crawler4j.parser.HtmlParseData</node>
+    <node x="939.8416666666669" y="418.0">edu.uci.ics.crawler4j.crawler.authentication.FormAuthInfo</node>
+    <node x="1909.3779839817848" y="0.0">edu.uci.ics.crawler4j.url.TLDList</node>
+    <node x="105.0" y="418.0">edu.uci.ics.crawler4j.frontier.WorkQueues</node>
+    <node x="2319.841666666667" y="584.0">edu.uci.ics.crawler4j.url.URLCanonicalizer</node>
+    <node x="2603.6816870488246" y="750.0">edu.uci.ics.crawler4j.robotstxt.RobotstxtParser</node>
+    <node x="2345.841666666667" y="418.0">edu.uci.ics.crawler4j.url.UrlResolver</node>
+    <node x="3547.3735722170795" y="750.0">edu.uci.ics.crawler4j.parser.ExtractedUrlAnchorPair</node>
+    <node x="3312.314748687668" y="906.0">edu.uci.ics.crawler4j.parser.AllTagMapper</node>
+    <node x="3767.988157763065" y="302.0">edu.uci.ics.crawler4j.parser.ParseData</node>
+    <node x="2858.391666666667" y="906.0">edu.uci.ics.crawler4j.robotstxt.RobotstxtServer</node>
+    <node x="299.25668704882446" y="906.0">edu.uci.ics.crawler4j.frontier.Frontier</node>
+    <node x="2862.641666666667" y="418.0">edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig</node>
+    <node x="1821.341666666667" y="584.0">edu.uci.ics.crawler4j.fetcher.SniPoolingHttpClientConnectionManager</node>
+    <node x="1541.841666666667" y="750.0">edu.uci.ics.crawler4j.fetcher.PageFetcher</node>
+    <node x="1976.8416666666672" y="418.0">edu.uci.ics.crawler4j.fetcher.SniSSLConnectionSocketFactory</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="edu.uci.ics.crawler4j.parser.BinaryParseData" target="edu.uci.ics.crawler4j.url.WebURL">
+      <point x="-72.0" y="-23.0" />
+      <point x="3642.129901960784" y="368.0" />
+      <point x="3647.135608617452" y="368.0" />
+      <point x="3647.135608617452" y="262.0" />
+      <point x="3242.1312448513504" y="262.0" />
+      <point x="6.47826086956502" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.robotstxt.RobotstxtServer" target="edu.uci.ics.crawler4j.fetcher.PageFetcher">
+      <point x="-81.53846153846143" y="-23.0" />
+      <point x="2882.8532051282054" y="866.0" />
+      <point x="1705.6416666666669" y="866.0" />
+      <point x="72.79999999999995" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.TextParseData" target="edu.uci.ics.crawler4j.url.WebURL">
+      <point x="66.0" y="-23.0" />
+      <point x="4036.8882780994322" y="398.0" />
+      <point x="4032.9325714427646" y="398.0" />
+      <point x="4032.9325714427646" y="222.0" />
+      <point x="3268.0442883296114" y="222.0" />
+      <point x="32.39130434782601" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.Parser" target="edu.uci.ics.crawler4j.crawler.Configurable">
+      <point x="-60.235294117646845" y="-23.0" />
+      <point x="3736.9446078431374" y="1052.0" />
+      <point x="3294.285336922962" y="1052.0" />
+      <point x="3294.285336922962" y="660.0" />
+      <point x="887.5083333333337" y="660.0" />
+      <point x="77.91666666666674" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.frontier.Frontier" target="edu.uci.ics.crawler4j.crawler.CrawlConfig">
+      <point x="50.05000000000018" y="-23.0" />
+      <point x="420.80668704882464" y="876.0" />
+      <point x="633.4666666666669" y="876.0" />
+      <point x="633.4666666666669" y="544.0" />
+      <point x="735.9666666666669" y="544.0" />
+      <point x="-33.75" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.WebCrawler" target="edu.uci.ics.crawler4j.parser.NotAllowedContentException">
+      <point x="50.625" y="-23.0" />
+      <point x="3350.5666666666666" y="1188.0" />
+      <point x="4588.064748687668" y="1188.0" />
+      <point x="82.75" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.fetcher.PageFetcher" target="edu.uci.ics.crawler4j.crawler.Configurable">
+      <point x="-84.5" y="-23.0" />
+      <point x="1548.341666666667" y="730.0" />
+      <point x="856.3416666666669" y="730.0" />
+      <point x="46.75" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.WebCrawler" target="edu.uci.ics.crawler4j.parser.ParseData">
+      <point x="61.875" y="-23.0" />
+      <point x="3361.8166666666666" y="1198.0" />
+      <point x="4681.314748687668" y="1198.0" />
+      <point x="4681.314748687668" y="378.0" />
+      <point x="3916.488157763065" y="378.0" />
+      <point x="67.5" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.Parser" target="edu.uci.ics.crawler4j.parser.HtmlParseData">
+      <point x="30.117647058823422" y="-23.0" />
+      <point x="3827.2975490196077" y="1012.0" />
+      <point x="4170.263235294118" y="1012.0" />
+      <point x="4170.263235294118" y="564.0" />
+      <point x="4124.0549447661" y="564.0" />
+      <point x="-68.33333333333303" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.ParseData" target="edu.uci.ics.crawler4j.url.WebURL">
+      <point x="0.0" y="-23.0" />
+      <point x="3848.988157763065" y="242.0" />
+      <point x="3255.087766590481" y="242.0" />
+      <point x="19.434782608695514" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.HtmlParseData" target="edu.uci.ics.crawler4j.url.WebURL">
+      <point x="68.33333333333303" y="-23.0" />
+      <point x="4260.721611432766" y="398.0" />
+      <point x="4255.599238109431" y="398.0" />
+      <point x="4255.599238109431" y="202.0" />
+      <point x="3281.000810068742" y="202.0" />
+      <point x="45.3478260869565" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.HtmlContentHandler" target="edu.uci.ics.crawler4j.parser.ExtractedUrlAnchorPair">
+      <point x="-96.0" y="-23.0" />
+      <point x="3621.3735722170795" y="886.0" />
+      <point x="3630.1735722170797" y="886.0" />
+      <point x="-55.19999999999982" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.authentication.BasicAuthInfo" target="edu.uci.ics.crawler4j.crawler.authentication.AuthInfo">
+      <point x="0.0" y="-23.0" />
+      <point x="1251.341666666667" y="398.0" />
+      <point x="1180.052983981785" y="398.0" />
+      <point x="12.5" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.url.WebURL" target="edu.uci.ics.crawler4j.url.TLDList">
+      <point x="0.0" y="-23.0" />
+      <point x="3235.6529839817854" y="71.0" />
+      <point x="2012.1279839817848" y="71.0" />
+      <point x="34.25" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.CrawlController" target="edu.uci.ics.crawler4j.fetcher.PageFetcher">
+      <point x="58.78125" y="-23.0" />
+      <point x="824.1645833333337" y="1022.0" />
+      <point x="1583.7416666666668" y="1022.0" />
+      <point x="1583.7416666666668" y="886.0" />
+      <point x="1596.4416666666668" y="886.0" />
+      <point x="-36.40000000000009" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.Parser" target="edu.uci.ics.crawler4j.parser.BinaryParseData">
+      <point x="-22.588235294117567" y="-23.0" />
+      <point x="3774.5916666666667" y="1002.0" />
+      <point x="3536.8735722170795" y="1002.0" />
+      <point x="3536.8735722170795" y="564.0" />
+      <point x="3660.129901960784" y="564.0" />
+      <point x="-54.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.Parser" target="edu.uci.ics.crawler4j.parser.HtmlContentHandler">
+      <point x="0.0" y="-23.0" />
+      <point x="3797.1799019607843" y="972.0" />
+      <point x="3781.3735722170795" y="972.0" />
+      <point x="64.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.CrawlController" target="edu.uci.ics.crawler4j.url.TLDList">
+      <point x="-19.59375" y="-23.0" />
+      <point x="745.7895833333337" y="982.0" />
+      <point x="655.4666666666669" y="982.0" />
+      <point x="655.4666666666669" y="71.0" />
+      <point x="1943.6279839817848" y="71.0" />
+      <point x="-34.25" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.CrawlController" target="edu.uci.ics.crawler4j.robotstxt.RobotstxtServer">
+      <point x="84.90625" y="-23.0" />
+      <point x="850.2895833333337" y="1042.0" />
+      <point x="2893.7250000000004" y="1042.0" />
+      <point x="-70.66666666666652" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.WebCrawler" target="edu.uci.ics.crawler4j.frontier.Frontier">
+      <point x="-73.125" y="-23.0" />
+      <point x="3226.8166666666666" y="1208.0" />
+      <point x="309.9250000000002" y="1208.0" />
+      <point x="309.9250000000002" y="1052.0" />
+      <point x="317.13168704882446" y="1052.0" />
+      <point x="-53.625" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.WebCrawler" target="edu.uci.ics.crawler4j.frontier.DocIDServer">
+      <point x="-84.375" y="-23.0" />
+      <point x="3215.5666666666666" y="1218.0" />
+      <point x="114.94106204882428" y="1218.0" />
+      <point x="114.94106204882428" y="1052.0" />
+      <point x="90.96972817950427" y="1052.0" />
+      <point x="-67.875" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.BinaryParseData" target="edu.uci.ics.crawler4j.parser.ParseData">
+      <point x="72.0" y="-23.0" />
+      <point x="3786.129901960784" y="398.0" />
+      <point x="3835.488157763065" y="398.0" />
+      <point x="-13.5" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.frontier.InProcessPagesDB" target="edu.uci.ics.crawler4j.frontier.WorkQueues">
+      <point x="-57.75" y="-23.0" />
+      <point x="449.71666666666715" y="514.0" />
+      <point x="260.0" y="514.0" />
+      <point x="62.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.fetcher.PageFetcher" target="edu.uci.ics.crawler4j.crawler.CrawlConfig">
+      <point x="-71.5" y="-23.0" />
+      <point x="1561.341666666667" y="720.0" />
+      <point x="983.3416666666669" y="720.0" />
+      <point x="983.3416666666669" y="554.0" />
+      <point x="825.9666666666669" y="554.0" />
+      <point x="56.25" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.robotstxt.RobotstxtServer" target="edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig">
+      <point x="0.0" y="-23.0" />
+      <point x="2964.391666666667" y="816.0" />
+      <point x="2932.9316870488246" y="816.0" />
+      <point x="2932.9316870488246" y="564.0" />
+      <point x="3013.8416666666667" y="564.0" />
+      <point x="43.19999999999982" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.robotstxt.HostDirectives" target="edu.uci.ics.crawler4j.robotstxt.UserAgentDirectives">
+      <point x="-39.80000000000018" y="-23.0" />
+      <point x="2783.1316870488245" y="514.0" />
+      <point x="2712.841666666667" y="514.0" />
+      <point x="50.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.Parser" target="edu.uci.ics.crawler4j.crawler.CrawlConfig">
+      <point x="-37.64705882352928" y="-23.0" />
+      <point x="3759.532843137255" y="1022.0" />
+      <point x="3521.814748687668" y="1022.0" />
+      <point x="3521.814748687668" y="494.0" />
+      <point x="848.4666666666669" y="494.0" />
+      <point x="78.75" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.robotstxt.HostDirectives" target="edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig">
+      <point x="79.59999999999991" y="-23.0" />
+      <point x="2902.531687048825" y="554.0" />
+      <point x="2970.641666666667" y="554.0" />
+      <point x="0.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.WebCrawler" target="edu.uci.ics.crawler4j.url.WebURL">
+      <point x="84.375" y="-23.0" />
+      <point x="3384.3166666666666" y="1218.0" />
+      <point x="4703.314748687668" y="1218.0" />
+      <point x="4703.314748687668" y="162.0" />
+      <point x="3306.913853547003" y="162.0" />
+      <point x="71.26086956521749" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.robotstxt.RobotstxtParser" target="edu.uci.ics.crawler4j.robotstxt.HostDirectives">
+      <point x="42.40000000000009" y="-23.0" />
+      <point x="2752.081687048825" y="710.0" />
+      <point x="2743.331687048825" y="710.0" />
+      <point x="-79.59999999999991" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.TextParseData" target="edu.uci.ics.crawler4j.parser.ParseData">
+      <point x="-66.0" y="-23.0" />
+      <point x="3904.8882780994322" y="398.0" />
+      <point x="3862.488157763065" y="398.0" />
+      <point x="13.5" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.frontier.Frontier" target="edu.uci.ics.crawler4j.frontier.WorkQueues">
+      <point x="-64.34999999999991" y="-23.0" />
+      <point x="306.40668704882455" y="876.0" />
+      <point x="156.0" y="876.0" />
+      <point x="156.0" y="564.0" />
+      <point x="136.0" y="564.0" />
+      <point x="-62.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.frontier.Frontier" target="edu.uci.ics.crawler4j.frontier.Counters">
+      <point x="-7.149999999999977" y="-23.0" />
+      <point x="363.60668704882437" y="836.0" />
+      <point x="345.63333333333367" y="836.0" />
+      <point x="50.66666666666663" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.WebCrawler" target="edu.uci.ics.crawler4j.robotstxt.RobotstxtServer">
+      <point x="-28.125" y="-23.0" />
+      <point x="3271.8166666666666" y="1168.0" />
+      <point x="3035.0583333333334" y="1168.0" />
+      <point x="70.66666666666652" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.authentication.NtAuthInfo" target="edu.uci.ics.crawler4j.crawler.authentication.AuthInfo">
+      <point x="0.0" y="-23.0" />
+      <point x="1454.841666666667" y="378.0" />
+      <point x="1230.052983981785" y="378.0" />
+      <point x="62.5" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.HtmlParseData" target="edu.uci.ics.crawler4j.parser.ParseData">
+      <point x="-68.33333333333303" y="-23.0" />
+      <point x="4124.0549447661" y="388.0" />
+      <point x="3889.488157763065" y="388.0" />
+      <point x="40.5" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.WebCrawler" target="edu.uci.ics.crawler4j.parser.Parser">
+      <point x="16.875" y="-23.0" />
+      <point x="3316.8166666666666" y="1158.0" />
+      <point x="3765.1799019607843" y="1158.0" />
+      <point x="-32.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.url.URLCanonicalizer" target="edu.uci.ics.crawler4j.url.UrlResolver">
+      <point x="0.0" y="-23.0" />
+      <point x="0.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.Parser" target="edu.uci.ics.crawler4j.parser.ExtractedUrlAnchorPair">
+      <point x="-15.058823529411711" y="-23.0" />
+      <point x="3782.1210784313726" y="992.0" />
+      <point x="3561.6382780994322" y="992.0" />
+      <point x="3561.6382780994322" y="886.0" />
+      <point x="3574.9735722170794" y="886.0" />
+      <point x="-110.40000000000009" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.Page" target="edu.uci.ics.crawler4j.url.WebURL">
+      <point x="-44.25" y="-23.0" />
+      <point x="3299.711394846171" y="398.0" />
+      <point x="3290.325525280954" y="398.0" />
+      <point x="3290.325525280954" y="282.0" />
+      <point x="3229.1747231122204" y="282.0" />
+      <point x="-6.47826086956502" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.frontier.Frontier" target="edu.uci.ics.crawler4j.crawler.Configurable">
+      <point x="64.34999999999991" y="-23.0" />
+      <point x="435.10668704882437" y="886.0" />
+      <point x="644.4666666666669" y="886.0" />
+      <point x="644.4666666666669" y="730.0" />
+      <point x="794.0083333333337" y="730.0" />
+      <point x="-15.583333333333258" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.Parser" target="edu.uci.ics.crawler4j.url.URLCanonicalizer">
+      <point x="-52.70588235294099" y="-23.0" />
+      <point x="3744.4740196078433" y="1042.0" />
+      <point x="3301.814748687668" y="1042.0" />
+      <point x="3301.814748687668" y="650.0" />
+      <point x="2506.508333333333" y="650.0" />
+      <point x="74.66666666666652" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.WebCrawler" target="edu.uci.ics.crawler4j.fetcher.PageFetchResult">
+      <point x="-16.875" y="-23.0" />
+      <point x="3283.0666666666666" y="1158.0" />
+      <point x="3259.6529839817854" y="1158.0" />
+      <point x="3259.6529839817854" y="730.0" />
+      <point x="3134.1816870488246" y="730.0" />
+      <point x="81.75" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.Parser" target="edu.uci.ics.crawler4j.url.WebURL">
+      <point x="52.70588235294099" y="-23.0" />
+      <point x="3849.8857843137253" y="1042.0" />
+      <point x="4312.917689864138" y="1042.0" />
+      <point x="4312.917689864138" y="182.0" />
+      <point x="3293.9573318078724" y="182.0" />
+      <point x="58.304347826086996" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.frontier.Counters" target="edu.uci.ics.crawler4j.crawler.Configurable">
+      <point x="38.0" y="-23.0" />
+      <point x="332.96666666666715" y="720.0" />
+      <point x="762.8416666666669" y="720.0" />
+      <point x="-46.75" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.fetcher.PageFetcher" target="edu.uci.ics.crawler4j.crawler.authentication.FormAuthInfo">
+      <point x="-58.5" y="-23.0" />
+      <point x="1574.341666666667" y="710.0" />
+      <point x="1037.341666666667" y="710.0" />
+      <point x="0.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.Configurable" target="edu.uci.ics.crawler4j.crawler.CrawlConfig">
+      <point x="-46.75" y="-23.0" />
+      <point x="762.8416666666669" y="564.0" />
+      <point x="780.9666666666669" y="564.0" />
+      <point x="11.25" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.fetcher.PageFetchResult" target="edu.uci.ics.crawler4j.crawler.Page">
+      <point x="0.0" y="-23.0" />
+      <point x="3052.4316870488246" y="524.0" />
+      <point x="3294.794728179505" y="524.0" />
+      <point x="-49.166666666666515" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.robotstxt.UserAgentDirectives" target="edu.uci.ics.crawler4j.robotstxt.PathRule">
+      <point x="-83.33333333333348" y="-23.0" />
+      <point x="2579.508333333333" y="398.0" />
+      <point x="2612.175" y="398.0" />
+      <point x="-50.666666666666515" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.WebCrawler" target="edu.uci.ics.crawler4j.crawler.CrawlController">
+      <point x="-50.625" y="-23.0" />
+      <point x="3249.3166666666666" y="1188.0" />
+      <point x="817.6333333333337" y="1188.0" />
+      <point x="52.25" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.robotstxt.RobotstxtServer" target="edu.uci.ics.crawler4j.robotstxt.HostDirectives">
+      <point x="-48.92307692307668" y="-23.0" />
+      <point x="2915.46858974359" y="846.0" />
+      <point x="2851.731687048825" y="846.0" />
+      <point x="2851.731687048825" y="710.0" />
+      <point x="2822.9316870488246" y="710.0" />
+      <point x="0.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.Parser" target="edu.uci.ics.crawler4j.parser.AllTagMapper">
+      <point x="-45.176470588235134" y="-23.0" />
+      <point x="3752.003431372549" y="1032.0" />
+      <point x="3411.814748687668" y="1032.0" />
+      <point x="0.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.frontier.InProcessPagesDB" target="edu.uci.ics.crawler4j.url.WebURL">
+      <point x="57.75" y="-23.0" />
+      <point x="565.2166666666672" y="232.0" />
+      <point x="3190.305157894829" y="232.0" />
+      <point x="-45.3478260869565" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.robotstxt.RobotstxtParser" target="edu.uci.ics.crawler4j.robotstxt.UserAgentDirectives">
+      <point x="-84.80000000000018" y="-23.0" />
+      <point x="2624.8816870488245" y="710.0" />
+      <point x="2634.8332558022807" y="710.0" />
+      <point x="2634.8332558022807" y="564.0" />
+      <point x="2562.841666666667" y="564.0" />
+      <point x="-100.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.robotstxt.RobotstxtServer" target="edu.uci.ics.crawler4j.fetcher.PageFetchResult">
+      <point x="16.307692307692378" y="-23.0" />
+      <point x="2980.6993589743593" y="836.0" />
+      <point x="3079.6816870488246" y="836.0" />
+      <point x="27.25" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.Parser" target="edu.uci.ics.crawler4j.crawler.Page">
+      <point x="-30.117647058823422" y="-23.0" />
+      <point x="3767.062254901961" y="1012.0" />
+      <point x="3529.3441604523737" y="1012.0" />
+      <point x="3529.3441604523737" y="484.0" />
+      <point x="3393.128061512838" y="484.0" />
+      <point x="49.166666666666515" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.Parser" target="edu.uci.ics.crawler4j.parser.NotAllowedContentException">
+      <point x="60.235294117646845" y="-23.0" />
+      <point x="3857.415196078431" y="1052.0" />
+      <point x="4422.564748687668" y="1052.0" />
+      <point x="-82.75" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.CrawlController" target="edu.uci.ics.crawler4j.frontier.DocIDServer">
+      <point x="-84.90625" y="-23.0" />
+      <point x="680.4770833333337" y="1032.0" />
+      <point x="181.46972817950427" y="1032.0" />
+      <point x="22.625" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.robotstxt.RobotstxtServer" target="edu.uci.ics.crawler4j.crawler.Page">
+      <point x="97.84615384615381" y="-23.0" />
+      <point x="3062.2378205128207" y="886.0" />
+      <point x="3245.315020382158" y="886.0" />
+      <point x="3245.315020382158" y="544.0" />
+      <point x="3334.128061512838" y="544.0" />
+      <point x="-9.833333333333485" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.fetcher.PageFetcher" target="edu.uci.ics.crawler4j.fetcher.PageFetchResult">
+      <point x="71.5" y="-23.0" />
+      <point x="1704.341666666667" y="720.0" />
+      <point x="2970.6816870488246" y="720.0" />
+      <point x="-81.75" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.robotstxt.RobotstxtServer" target="edu.uci.ics.crawler4j.robotstxt.RobotstxtParser">
+      <point x="-65.23076923076906" y="-23.0" />
+      <point x="2899.160897435898" y="856.0" />
+      <point x="2709.6816870488246" y="856.0" />
+      <point x="0.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.WebCrawler" target="edu.uci.ics.crawler4j.fetcher.PageFetcher">
+      <point x="-39.375" y="-23.0" />
+      <point x="3260.5666666666666" y="1178.0" />
+      <point x="2663.281687048825" y="1178.0" />
+      <point x="2663.281687048825" y="886.0" />
+      <point x="1632.841666666667" y="886.0" />
+      <point x="0.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.frontier.Frontier" target="edu.uci.ics.crawler4j.url.WebURL">
+      <point x="7.150000000000091" y="-23.0" />
+      <point x="377.90668704882455" y="886.0" />
+      <point x="381.46666666666715" y="886.0" />
+      <point x="381.46666666666715" y="222.0" />
+      <point x="3183.826897025264" y="222.0" />
+      <point x="-51.82608695652152" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.CrawlController" target="edu.uci.ics.crawler4j.frontier.Frontier">
+      <point x="-32.65625" y="-23.0" />
+      <point x="732.7270833333337" y="992.0" />
+      <point x="424.38168704882446" y="992.0" />
+      <point x="53.625" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.fetcher.SniPoolingHttpClientConnectionManager" target="edu.uci.ics.crawler4j.fetcher.SniSSLConnectionSocketFactory">
+      <point x="2.2737367544323206E-13" y="-23.0" />
+      <point x="2037.8416666666672" y="564.0" />
+      <point x="2064.091666666667" y="564.0" />
+      <point x="-87.25" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.WebCrawler" target="edu.uci.ics.crawler4j.parser.HtmlParseData">
+      <point x="39.375" y="-23.0" />
+      <point x="3339.3166666666666" y="1178.0" />
+      <point x="4329.314748687668" y="1178.0" />
+      <point x="4329.314748687668" y="564.0" />
+      <point x="4260.721611432766" y="564.0" />
+      <point x="68.33333333333303" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.CrawlController" target="edu.uci.ics.crawler4j.url.WebURL">
+      <point x="32.65625" y="-23.0" />
+      <point x="798.0395833333337" y="1002.0" />
+      <point x="929.3416666666669" y="1002.0" />
+      <point x="929.3416666666669" y="252.0" />
+      <point x="3203.2616796339594" y="252.0" />
+      <point x="-32.39130434782601" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.fetcher.PageFetcher" target="edu.uci.ics.crawler4j.crawler.authentication.AuthInfo">
+      <point x="-32.5" y="-23.0" />
+      <point x="1600.341666666667" y="690.0" />
+      <point x="1358.341666666667" y="690.0" />
+      <point x="1358.341666666667" y="388.0" />
+      <point x="1205.052983981785" y="388.0" />
+      <point x="37.5" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.CrawlController" target="edu.uci.ics.crawler4j.url.URLCanonicalizer">
+      <point x="71.84375" y="-23.0" />
+      <point x="837.2270833333337" y="1032.0" />
+      <point x="2431.841666666667" y="1032.0" />
+      <point x="0.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.frontier.Counters" target="edu.uci.ics.crawler4j.crawler.CrawlConfig">
+      <point x="-38.0" y="-23.0" />
+      <point x="256.96666666666715" y="534.0" />
+      <point x="713.4666666666669" y="534.0" />
+      <point x="-56.25" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.fetcher.PageFetcher" target="edu.uci.ics.crawler4j.fetcher.SniPoolingHttpClientConnectionManager">
+      <point x="32.5" y="-23.0" />
+      <point x="1665.341666666667" y="690.0" />
+      <point x="2037.841666666667" y="690.0" />
+      <point x="0.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.fetcher.PageFetcher" target="edu.uci.ics.crawler4j.crawler.authentication.BasicAuthInfo">
+      <point x="-45.5" y="-23.0" />
+      <point x="1587.341666666667" y="700.0" />
+      <point x="1251.341666666667" y="700.0" />
+      <point x="0.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.robotstxt.RobotstxtServer" target="edu.uci.ics.crawler4j.url.WebURL">
+      <point x="48.92307692307713" y="-23.0" />
+      <point x="3013.314743589744" y="856.0" />
+      <point x="3193.481687048825" y="856.0" />
+      <point x="3193.481687048825" y="272.0" />
+      <point x="3216.21820137309" y="272.0" />
+      <point x="-19.434782608695514" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.frontier.WorkQueues" target="edu.uci.ics.crawler4j.frontier.WebURLTupleBinding">
+      <point x="-62.0" y="-23.0" />
+      <point x="136.0" y="398.0" />
+      <point x="66.0" y="398.0" />
+      <point x="-66.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.WebCrawler" target="edu.uci.ics.crawler4j.crawler.Page">
+      <point x="-5.625" y="-23.0" />
+      <point x="3294.3166666666666" y="1148.0" />
+      <point x="3270.6529839817854" y="1148.0" />
+      <point x="3270.6529839817854" y="554.0" />
+      <point x="3353.794728179505" y="554.0" />
+      <point x="9.833333333333485" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.CrawlConfig" target="edu.uci.ics.crawler4j.crawler.authentication.AuthInfo">
+      <point x="45.0" y="-23.0" />
+      <point x="814.7166666666669" y="388.0" />
+      <point x="1130.052983981785" y="388.0" />
+      <point x="-37.5" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.robotstxt.UserAgentDirectives" target="edu.uci.ics.crawler4j.robotstxt.HostDirectives">
+      <point x="100.0" y="23.0" />
+      <point x="2762.841666666667" y="504.0" />
+      <point x="2822.9316870488246" y="504.0" />
+      <point x="0.0" y="-23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.parser.Parser" target="edu.uci.ics.crawler4j.parser.TextParseData">
+      <point x="22.588235294117567" y="-23.0" />
+      <point x="3819.768137254902" y="1002.0" />
+      <point x="3990.45931372549" y="1002.0" />
+      <point x="3990.45931372549" y="564.0" />
+      <point x="4020.3882780994322" y="564.0" />
+      <point x="49.5" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.frontier.DocIDServer" target="edu.uci.ics.crawler4j.crawler.CrawlConfig">
+      <point x="-45.25" y="-23.0" />
+      <point x="113.59472817950427" y="730.0" />
+      <point x="167.0" y="730.0" />
+      <point x="167.0" y="524.0" />
+      <point x="690.9666666666669" y="524.0" />
+      <point x="-78.75" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.frontier.WebURLTupleBinding" target="edu.uci.ics.crawler4j.url.WebURL">
+      <point x="66.0" y="-23.0" />
+      <point x="198.0" y="202.0" />
+      <point x="3170.8703752861334" y="202.0" />
+      <point x="-64.78260869565202" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.frontier.Frontier" target="edu.uci.ics.crawler4j.frontier.InProcessPagesDB">
+      <point x="35.75" y="-23.0" />
+      <point x="406.50668704882446" y="866.0" />
+      <point x="515.8529839817847" y="866.0" />
+      <point x="515.8529839817847" y="700.0" />
+      <point x="565.2166666666672" y="700.0" />
+      <point x="57.75" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.authentication.FormAuthInfo" target="edu.uci.ics.crawler4j.crawler.authentication.AuthInfo">
+      <point x="0.0" y="-23.0" />
+      <point x="1037.341666666667" y="398.0" />
+      <point x="1155.052983981785" y="398.0" />
+      <point x="-12.5" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.Page" target="edu.uci.ics.crawler4j.parser.ParseData">
+      <point x="14.75" y="-23.0" />
+      <point x="3358.711394846171" y="378.0" />
+      <point x="3781.488157763065" y="378.0" />
+      <point x="-67.5" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.fetcher.PageFetcher" target="edu.uci.ics.crawler4j.fetcher.IdleConnectionMonitorThread">
+      <point x="-6.5" y="-23.0" />
+      <point x="1626.341666666667" y="670.0" />
+      <point x="1549.091666666667" y="670.0" />
+      <point x="-83.75" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.robotstxt.RobotstxtParser" target="edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig">
+      <point x="0.0" y="-23.0" />
+      <point x="2709.6816870488246" y="710.0" />
+      <point x="2678.281687048825" y="710.0" />
+      <point x="2678.281687048825" y="534.0" />
+      <point x="2884.241666666667" y="534.0" />
+      <point x="-86.40000000000009" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.frontier.DocIDServer" target="edu.uci.ics.crawler4j.crawler.Configurable">
+      <point x="45.25" y="-23.0" />
+      <point x="204.09472817950427" y="886.0" />
+      <point x="189.0" y="886.0" />
+      <point x="189.0" y="710.0" />
+      <point x="731.6750000000002" y="710.0" />
+      <point x="-77.91666666666674" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.fetcher.PageFetcher" target="edu.uci.ics.crawler4j.crawler.authentication.NtAuthInfo">
+      <point x="-19.5" y="-23.0" />
+      <point x="1613.341666666667" y="680.0" />
+      <point x="1454.841666666667" y="680.0" />
+      <point x="0.0" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.frontier.WorkQueues" target="edu.uci.ics.crawler4j.url.WebURL">
+      <point x="62.0" y="-23.0" />
+      <point x="260.0" y="398.0" />
+      <point x="325.01086956521794" y="398.0" />
+      <point x="325.01086956521794" y="212.0" />
+      <point x="3177.3486361556984" y="212.0" />
+      <point x="-58.304347826086996" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.fetcher.PageFetcher" target="edu.uci.ics.crawler4j.url.WebURL">
+      <point x="19.5" y="-23.0" />
+      <point x="1652.341666666667" y="680.0" />
+      <point x="1810.841666666667" y="680.0" />
+      <point x="1810.841666666667" y="262.0" />
+      <point x="3209.7399405035244" y="262.0" />
+      <point x="-25.913043478260988" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.CrawlController" target="edu.uci.ics.crawler4j.crawler.Configurable">
+      <point x="6.53125" y="-23.0" />
+      <point x="771.9145833333337" y="982.0" />
+      <point x="825.1750000000004" y="982.0" />
+      <point x="15.583333333333258" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.crawler.CrawlController" target="edu.uci.ics.crawler4j.crawler.CrawlConfig">
+      <point x="-6.53125" y="-23.0" />
+      <point x="758.8520833333337" y="972.0" />
+      <point x="705.5916666666669" y="972.0" />
+      <point x="705.5916666666669" y="554.0" />
+      <point x="758.4666666666669" y="554.0" />
+      <point x="-11.25" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.fetcher.PageFetcher" target="edu.uci.ics.crawler4j.url.URLCanonicalizer">
+      <point x="58.5" y="-23.0" />
+      <point x="1691.341666666667" y="710.0" />
+      <point x="2357.175" y="710.0" />
+      <point x="-74.66666666666652" y="23.0" />
+    </edge>
+    <edge source="edu.uci.ics.crawler4j.fetcher.PageFetcher" target="edu.uci.ics.crawler4j.fetcher.SniSSLConnectionSocketFactory">
+      <point x="45.5" y="-23.0" />
+      <point x="1678.341666666667" y="700.0" />
+      <point x="2264.841666666667" y="700.0" />
+      <point x="2264.841666666667" y="564.0" />
+      <point x="2238.591666666667" y="564.0" />
+      <point x="87.25" y="23.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="692.9999999999997" y="507.9999999999999" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
