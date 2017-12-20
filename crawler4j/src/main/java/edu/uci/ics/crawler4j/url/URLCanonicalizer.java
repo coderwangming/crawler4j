@@ -28,17 +28,32 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
+ * 查看维基百科 http://en.wikipedia.org/wiki/URL_normalization 作为参考引用<p></p>
+ * 部分代码采用自 http://stackoverflow.com/a/4057470/405418 <p></p>
+ * <p>URL规范化即将url规范成一个通用的形式，这样程序客气确定两个不同“字符串”的URL其实是等价的，
+ * 这样爬虫边不用再将两个一样的url进行爬取</p>
  * See http://en.wikipedia.org/wiki/URL_normalization for a reference Note: some
  * parts of the code are adapted from: http://stackoverflow.com/a/4057470/405418
  *
  * @author Yasser Ganjisaffar
  */
-public class URLCanonicalizer {
+public class URLCanonicalizer {//URL规范器
 
+    /**
+     * 获取规范化后的url
+     * @param url
+     * @return
+     */
     public static String getCanonicalURL(String url) {
         return getCanonicalURL(url, null);
     }
 
+    /**
+     * 获取规范化的url
+     * @param href
+     * @param context
+     * @return
+     */
     public static String getCanonicalURL(String href, String context) {
 
         try {
@@ -180,8 +195,8 @@ public class URLCanonicalizer {
     private static String percentEncodeRfc3986(String string) {
         try {
             string = string.replace("+", "%2B");
-            string = URLDecoder.decode(string, "UTF-8");
-            string = URLEncoder.encode(string, "UTF-8");
+            string = URLDecoder.decode(string, "UTF-8");//解码
+            string = URLEncoder.encode(string, "UTF-8");//编码
             return string.replace("+", "%20").replace("*", "%2A").replace("%7E", "~");
         } catch (Exception e) {
             return string;

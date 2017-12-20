@@ -20,11 +20,12 @@ package edu.uci.ics.crawler4j.url;
 public final class UrlResolver {
 
     /**
+     * 根据一个给定的url解析给定的url；详情查看<a href="http://www.faqs.org/rfcs/rfc1808.html">RFC1808</a>第四部分
      * Resolves a given relative URL against a base URL. See
      * <a href="http://www.faqs.org/rfcs/rfc1808.html">RFC1808</a>
      * Section 4 for more details.
      *
-     * @param baseUrl     The base URL in which to resolve the specification.
+     * @param baseUrl     The base URL in which to resolve the specification.“用于解析规范的基本url”
      * @param relativeUrl The relative URL to resolve against the base URL.
      * @return the resolved specification.
      */
@@ -390,6 +391,7 @@ public final class UrlResolver {
     }
 
     /**
+     * 代表统一资源定位符的内部类
      * Class <tt>Url</tt> represents a Uniform Resource Locator.
      *
      * @author Martin Tamme

@@ -37,7 +37,7 @@ public class WebURL implements Serializable {
     private String url;
 
     private int docid;
-    private int parentDocid;
+    private int parentDocid;//document id 缩写
     private String parentUrl;
     private short depth;
     private String domain;
@@ -49,12 +49,17 @@ public class WebURL implements Serializable {
     private Map<String, String> attributes;
 
     /**
+     * 返回此url的“唯一文档id”
      * @return unique document id assigned to this Url.
      */
     public int getDocid() {
         return docid;
     }
 
+    /**
+     * 设置此url的“唯一文档id”
+     * @param docid
+     */
     public void setDocid(int docid) {
         this.docid = docid;
     }
