@@ -261,10 +261,10 @@
 
 	<dependencies>
 
-    <!-- Compile time Dependencies -->
+    <!-- Compile time Dependencies：查看pom使用的工具也是快速了解git项目的方式之一 -->
 
     <dependency>
-        <!-- Logging framework -->
+        <!-- Logging framework 日志工具pom-->
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
         <version>${slf4j.version}</version>
@@ -277,11 +277,14 @@
         <scope>runtime</scope>
     </dependency>
     <dependency>
-        <!-- Google's core Java libraries -->
+
+        <!-- Google's core Java libraries 谷歌核心java类库-->
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>${guava.version}</version>
     </dependency>
+
+
 	<dependency>
 		<groupId>org.apache.httpcomponents</groupId>
 		<artifactId>httpclient</artifactId>
@@ -294,7 +297,7 @@
 		<artifactId>je</artifactId>
 		<version>${je.version}</version>
 	</dependency>
-
+		<!--Apache Tika 利用现有的解析类库，从不同格式的文档中（例如HTML, PDF, Doc)，侦测和提取出元数据和结构化内容-->
 	<dependency>
 		<groupId>org.apache.tika</groupId>
 		<artifactId>tika-parsers</artifactId>
@@ -483,7 +486,7 @@
 		</exclusions>
 	</dependency>
 
-    <!-- Test Dependencies -->
+    <!-- Test Dependencies 单元测试依赖-->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -509,7 +512,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
+<!--单元测试依赖-->
 	<repositories>
 		<repository>
 			<id>oracleReleases</id>
