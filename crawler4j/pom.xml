@@ -512,7 +512,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-<!--单元测试依赖-->
+<!--end of 单元测试依赖-->
 	<repositories>
 		<repository>
 			<id>oracleReleases</id>
