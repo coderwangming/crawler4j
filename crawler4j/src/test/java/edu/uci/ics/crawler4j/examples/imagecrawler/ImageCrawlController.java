@@ -55,7 +55,7 @@ public class ImageCrawlController {
      */
         config.setIncludeBinaryContentInCrawling(true);
 
-        String[] crawlDomains = {"http://www.mtime.com/?wd=URL¹æ·¶»¯"};
+        String[] crawlDomains = {"http://www.mtime.com/"};
 
         PageFetcher pageFetcher = new PageFetcher(config);
         RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
