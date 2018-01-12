@@ -125,25 +125,25 @@ public class Frontier extends Configurable {
     }
 
     /**
-     *
-     * @param max 存放其他urls的链表容量
+     * 从工作队列中取urls放进第二个参数中，并且将这些urls从工作队列中移除
+     * @param max
      * @param result 根据种子url找到的其他urls
      */
     public void getNextURLs(int max, List<WebURL> result) {
         while (true) {
-            synchronized (mutex) {
+            synchronized (mutex) {//start of 取/移
                 if (isFinished) {
                     return;
                 }
                 try {
-                    List<WebURL> curResults = workQueues.get(max);//get也是加锁方法
-                    workQueues.delete(curResults.size());
+                    List<WebURL> curResults = workQueues.get(max);//去除工作队列中的url
+                    workQueues.delete(curResults.size());//将取出的url从工作队列中删除
                     if (inProcessPages != null) {
-                        for (WebURL curPage : curResults) {
+                        for (WebURL curPage : curResults) {//遍历工作队列中取出的url，并一一放进“正在处理队列"
                             inProcessPages.put(curPage);
                         }
                     }
-                    result.addAll(curResults);
+                    result.addAll(curResults);//将工作队列中url列表放进返回结果集
                 } catch (DatabaseException e) {
                     logger.error("Error while getting next urls", e);
                 }
@@ -151,7 +151,7 @@ public class Frontier extends Configurable {
                 if (result.size() > 0) {
                     return;
                 }
-            }
+            }//end of 取/移
 
             try {
                 synchronized (waitingList) {

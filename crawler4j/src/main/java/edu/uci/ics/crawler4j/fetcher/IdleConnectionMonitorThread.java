@@ -21,13 +21,17 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 
+/**
+ * 类名“空闲连结监视线程”，继承线程类
+ * 每过5秒关闭空闲的链接和过期的链接
+ */
 public class IdleConnectionMonitorThread extends Thread {
 
     private final PoolingHttpClientConnectionManager connMgr;
     private volatile boolean shutdown;
 
     public IdleConnectionMonitorThread(PoolingHttpClientConnectionManager connMgr) {
-        super("Connection Manager");
+        super("Connection Manager");//线程名称“链接管理器”
         this.connMgr = connMgr;
     }
 
@@ -36,10 +40,11 @@ public class IdleConnectionMonitorThread extends Thread {
         try {
             while (!shutdown) {
                 synchronized (this) {
-                    wait(5000);
+                    wait(5000);//？等待？
                     // Close expired connections
-                    connMgr.closeExpiredConnections();
+                    connMgr.closeExpiredConnections();//关闭过期的链接
                     // Optionally, close connections that have been idle longer than 30 sec
+                    //关闭空闲的链接（空闲的时间长度，空闲的时间单位）
                     connMgr.closeIdleConnections(30, TimeUnit.SECONDS);
                 }
             }

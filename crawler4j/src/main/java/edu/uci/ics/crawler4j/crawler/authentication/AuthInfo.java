@@ -7,7 +7,8 @@ import javax.swing.text.html.FormSubmitEvent.MethodType;
 
 /**
  * Created by Avi Hayun on 11/23/2014.
- *
+ * 包含验证信息的抽象类。这个类应该被指定的验证类型继承，比如表单验证和基本验证等。<p></p>
+ * 这个类包含所有的交互验证数据
  * Abstract class containing authentication information needed to login into a user/password
  * protected site<br>
  * This class should be extended by specific authentication types like form authentication and
@@ -17,12 +18,17 @@ import javax.swing.text.html.FormSubmitEvent.MethodType;
  * This class contains all of the mutual authentication data for all authentication types
  */
 public abstract class AuthInfo {
+
+    /**
+     * 验证类型枚举类
+     */
     public enum AuthenticationType {
         BASIC_AUTHENTICATION,
         FORM_AUTHENTICATION,
         NT_AUTHENTICATION
     }
 
+    //类型、方法、协议、host、登录目标、端口、用户信息
     protected AuthenticationType authenticationType;
     protected MethodType httpMethod;
     protected String protocol;

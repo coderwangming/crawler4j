@@ -21,7 +21,7 @@ import org.apache.tika.parser.html.HtmlMapper;
 
 /**
  * Maps all HTML tags (not ignore some of this)
- *
+ * 在Parser中被调用：parseContext.set(HtmlMapper.class, AllTagMapper.class.newInstance());
  * @author Andrey Nikolaev (vajadhava@gmail.com)
  */
 public class AllTagMapper implements HtmlMapper {

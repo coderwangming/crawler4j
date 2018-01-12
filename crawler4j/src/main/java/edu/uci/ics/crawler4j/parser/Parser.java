@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.uci.ics.crawler4j.crawler.exceptions.NotAllowedContentException;
 import org.apache.tika.language.LanguageIdentifier;
 import org.apache.tika.metadata.DublinCore;
 import org.apache.tika.metadata.Metadata;
@@ -49,27 +50,38 @@ public class Parser extends Configurable {
 
     protected static final Logger logger = LoggerFactory.getLogger(Parser.class);
 
+    //todo ？？"html解析器"和"解析内容"？？
     private final HtmlParser htmlParser;
     private final ParseContext parseContext;
 
+    //super关键字初始化父类变量，然后初始化此类变量
     public Parser(CrawlConfig config) throws InstantiationException, IllegalAccessException {
-        super(config);
+        super(config);//this.config = config;.父类有且只有类变量CrawlConfig
         htmlParser = new HtmlParser();
         parseContext = new ParseContext();
         parseContext.set(HtmlMapper.class, AllTagMapper.class.newInstance());
     }
 
+    /**
+     * 判定page类型是二进制内容、纯文本还是html，并根据不同的类型进行不同的解析，并将结果放进Page中
+     * todo 第三种情况，即html那种情况未做深入了解
+     * @param page
+     * @param contextURL
+     * @throws NotAllowedContentException
+     * @throws ParseException
+     */
     public void parse(Page page, String contextURL)
         throws NotAllowedContentException, ParseException {
-        if (Util.hasBinaryContent(page.getContentType())) { // BINARY
+        // 如果Page包含二进制内容，例如图片、视频、音频和应用
+        if (Util.hasBinaryContent(page.getContentType())) {
             BinaryParseData parseData = new BinaryParseData();
-            if (config.isIncludeBinaryContentInCrawling()) {
+            if (config.isIncludeBinaryContentInCrawling()) { //config是父类变量：如果配置中不允许爬去二进制内容，则此网页内容是不允许爬取的
                 if (config.isProcessBinaryContentInCrawling()) {
-                    parseData.setBinaryContent(page.getContentData());
+                    parseData.setBinaryContent(page.getContentData());//二进制内容放进BinaryParseData
                 } else {
                     parseData.setHtml("<html></html>");
                 }
-                page.setParseData(parseData);
+                page.setParseData(parseData);//解析内容放进Page
                 if (parseData.getHtml() == null) {
                     throw new ParseException();
                 }
@@ -77,7 +89,9 @@ public class Parser extends Configurable {
             } else {
                 throw new NotAllowedContentException();
             }
-        } else if (Util.hasPlainTextContent(page.getContentType())) { // plain Text
+        }
+        // 如果Page包含纯文本：返回contentType包含“text”而且不包含“html”
+        else if (Util.hasPlainTextContent(page.getContentType())) {
             try {
                 TextParseData parseData = new TextParseData();
                 if (page.getContentCharset() == null) {
@@ -92,7 +106,9 @@ public class Parser extends Configurable {
                 logger.error("{}, while parsing: {}", e.getMessage(), page.getWebURL().getURL());
                 throw new ParseException();
             }
-        } else { // isHTML
+        }
+        //第三种情况，即html格式
+        else { // isHTML
             Metadata metadata = new Metadata();
             HtmlContentHandler contentHandler = new HtmlContentHandler();
             try (InputStream inputStream = new ByteArrayInputStream(page.getContentData())) {

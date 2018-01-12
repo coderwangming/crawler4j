@@ -24,6 +24,7 @@ import edu.uci.ics.crawler4j.url.WebURL;
 
 public class TextParseData implements ParseData {
 
+    //´¿ÎÄ±¾ÄÚÈİ
     private String textContent;
     private Set<WebURL> outgoingUrls = new HashSet<>();
 

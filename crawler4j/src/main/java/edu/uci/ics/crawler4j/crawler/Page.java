@@ -21,10 +21,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
+//fixme httpclient下的东西
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.util.ByteArrayBuffer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +34,7 @@ import edu.uci.ics.crawler4j.parser.ParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
 
 /**
+ * 包含网页爬取和解析的数据
  * This class contains the data for a fetched and parsed page.
  *
  * @author Yasser Ganjisaffar
@@ -66,6 +69,7 @@ public class Page {
     protected byte[] contentData;
 
     /**
+     * 本页的数据类型，比如"text/html; charset=UTF-8"
      * The ContentType of this page.
      * For example: "text/html; charset=UTF-8"
      */
@@ -90,6 +94,7 @@ public class Page {
     private String language;
 
     /**
+     * 爬取某个页面后响应的Header列表
      * Headers which were present in the response of the fetch request
      */
     protected Header[] fetchResponseHeaders;
@@ -111,11 +116,12 @@ public class Page {
     }
 
     /**
-     * 读取一个指定最大值的entity。这个方法是EntityUtils.toByteArray的替代，因为后者么哦有指定最大值。
+     * 使用指定的最大值(第二个参数)从entity(第一个参数)中读取内容——最为返回值。<p></p>
+     * 这个方法是EntityUtils.toByteArray的替代，因为后者没有指定最大值。
      * Read contents from an entity, with a specified maximum. This is a replacement of
      * EntityUtils.toByteArray because that function does not impose a maximum size.
      *
-     * @param entity The entity from which to read  说要读取的entity
+     * @param entity The entity from which to read  从中读取内容的entity
      * @param maxBytes The maximum number of bytes to read  读取的最大字节
      * @return A byte array containing maxBytes or fewer bytes read from the entity 从entity中读取的字节
      *
@@ -125,31 +131,38 @@ public class Page {
         if (entity == null) {
             return new byte[0];
         }
-        try (InputStream is = entity.getContent()) {
-            int size = (int) entity.getContentLength();
+        try (InputStream is = entity.getContent()) {//从Entity对象中获取内容
+            int size = (int) entity.getContentLength();//内容的长度
             int readBufferLength = size;
 
             if (readBufferLength <= 0) {
-                readBufferLength = 4096;
+                readBufferLength = 4096;//2^12
             }
             // in case when the maxBytes is less than the actual page size
+            //如果实际大小超过指定读取的maxBytes，则将readBufferLength设置为maxBytes
             readBufferLength = Math.min(readBufferLength, maxBytes);
 
-            // We allocate the buffer with either the actual size of the entity (if available)
-            // or with the default 4KiB if the server did not return a value to avoid allocating
-            // the full maxBytes (for the cases when the actual size will be smaller than maxBytes).
-            ByteArrayBuffer buffer = new ByteArrayBuffer(readBufferLength);
-
+            /**
+             * We allocate the buffer with either the actual size of the entity (if available)
+             * or with the default 4KiB if the server did not return a value to avoid allocating
+             * the full maxBytes (for the cases when the actual size will be smaller than maxBytes).
+             *
+             * 我们分配的缓冲区要不是entity实际的大小(如果可以获取)，要不是4KB—如果服务不返回一个值
+             * 来避免分配整个maxBytes大小，即maxBytes小于Entity实际的大小的情况。
+             */
+            ByteArrayBuffer buffer = new ByteArrayBuffer(readBufferLength);//fixme 返回值
             byte[] tmpBuff = new byte[4096];
             int dataLength;
 
-            while ((dataLength = is.read(tmpBuff)) != -1) {
+            while ((dataLength = is.read(tmpBuff)) != -1) {//将InputStream对象中的数据放进参数byte[]中，并返回字节数
+                //如果指定最大容量大于0，？？读取长度+指定读取长度大于指定最大值
                 if (maxBytes > 0 && (buffer.length() + dataLength) > maxBytes) {
-                    truncated = true;
-                    dataLength = maxBytes - buffer.length();
+                    truncated = true;//将内容删节
+                    dataLength = maxBytes - buffer.length();//截取数据长度到某个值
                 }
+                //将tmpBuff中的数据从索引0开始读取dataLength字节的数据到buffer
                 buffer.append(tmpBuff, 0, dataLength);
-                if (truncated) {
+                if (truncated) {//如果表示已经将内容删节了，停止循环
                     break;
                 }
             }
@@ -158,6 +171,7 @@ public class Page {
     }
 
     /**
+     * 从一个爬去的HttpEntity中加载对应网页的内若
      * Loads the content of this page from a fetched HttpEntity.
      *
      * @param entity HttpEntity

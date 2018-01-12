@@ -63,6 +63,8 @@ public class DocIDServer extends Configurable {
     }
 
     /**
+     * 返回之前访问过的网址的docid，如果没有被访问过着返回-1。<p></p>
+     * 使用的是工具com.sleepycat，暂不做深究
      * Returns the docid of an already seen url.
      *
      * @param url the URL for which the docid is returned.
@@ -74,13 +76,14 @@ public class DocIDServer extends Configurable {
             DatabaseEntry value = new DatabaseEntry();
             try {
                 DatabaseEntry key = new DatabaseEntry(url.getBytes());
+                //OperationStatus.NOTFOUND if no matching key/data pair is found; otherwise, OperationStatus.SUCCESS.
                 result = docIDsDB.get(null, key, value, null);
 
             } catch (Exception e) {
                 logger.error("Exception thrown while getting DocID", e);
                 return -1;
             }
-
+            //如果在docIDsDB中发现了key/data pair，而且
             if ((result == OperationStatus.SUCCESS) && (value.getData().length > 0)) {
                 return Util.byteArray2Int(value.getData());
             }
@@ -131,6 +134,11 @@ public class DocIDServer extends Configurable {
         }
     }
 
+    /**
+     * 如果这个url被访问过，则返回true
+     * @param url
+     * @return
+     */
     public boolean isSeenBefore(String url) {
         return getDocId(url) != -1;
     }

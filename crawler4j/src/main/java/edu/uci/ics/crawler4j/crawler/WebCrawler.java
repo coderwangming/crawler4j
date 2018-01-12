@@ -21,8 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+//httpclient的类：1XX是信息；2XX是成功；3XX是重定向；4XX是客户端错误；5XX是服务器错误；
 import org.apache.http.HttpStatus;
+//英文 原因短语目录：应该保存着那些Not Found之类的话
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +37,7 @@ import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.frontier.DocIDServer;
 import edu.uci.ics.crawler4j.frontier.Frontier;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
-import edu.uci.ics.crawler4j.parser.NotAllowedContentException;
+import edu.uci.ics.crawler4j.crawler.exceptions.NotAllowedContentException;
 import edu.uci.ics.crawler4j.parser.ParseData;
 import edu.uci.ics.crawler4j.parser.Parser;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
@@ -70,6 +73,7 @@ public class WebCrawler implements Runnable {
     private Thread myThread;
 
     /**
+     * 这个解析器用户这个爬虫实例解析爬取的内容
      * The parser that is used by this crawler instance to parse the content of the fetched pages.
      */
     private Parser parser;
@@ -80,6 +84,7 @@ public class WebCrawler implements Runnable {
     private PageFetcher pageFetcher;
 
     /**
+     * 爬虫实例用“机器人文本服务”实例来检测爬虫是否允许爬去页面的内容
      * The RobotstxtServer instance that is used by this crawler instance to
      * determine whether the crawler is allowed to crawl the content of each page.
      */
@@ -91,6 +96,7 @@ public class WebCrawler implements Runnable {
     private DocIDServer docIdServer;
 
     /**
+     * Frontier用于管理爬虫队列
      * The Frontier object that manages the crawl queue.
      */
     private Frontier frontier;
@@ -162,6 +168,7 @@ public class WebCrawler implements Runnable {
     }
 
     /**
+     * 可以被子类继承已处理——当得到返回结果PageResult并获取其对应的状态码时，根据不同的状态码进行不同的处理方式
      * This function is called once the header of a page is fetched. It can be
      * overridden by sub-classes to perform custom logic for different status
      * codes. For example, 404 pages can be logged, etc.
@@ -179,7 +186,7 @@ public class WebCrawler implements Runnable {
      * This function is called before processing of the page's URL
      * It can be overridden by subclasses for tweaking of the url before processing it.
      * For example, http://abc.com/def?a=123 - http://abc.com/def
-     * 使用url之前先处理他，比如去掉查询参数
+     * <p></p>使用url之前先处理他，比如去掉查询参数
      * @param curURL current URL which can be tweaked before processing
      * @return tweaked WebURL
      */
@@ -198,6 +205,7 @@ public class WebCrawler implements Runnable {
     }
 
     /**
+     * 这个方法用户爬虫遇到返回状态码为3XX的情况
      * This function is called if the crawler encounters a page with a 3xx status code
      *
      * @param page Partial page object
@@ -271,33 +279,43 @@ public class WebCrawler implements Runnable {
         return null;
     }
 
-    //TODO 爬虫工作的代码
+    /**
+     * fixme 爬虫工作的代码
+     * 前置处理方法有两个：
+     *      1.一个是每个线程开始run方法时的潜质处理方法onStart()
+     *      2.一个是处理工作队列中每个WebURL对象时的前置处理方法 curURL = handleUrlBeforeProcess(curURL)
+     */
     @Override
     public void run() {
-        onStart();//爬虫工作之前调用，可以重写此方法，然后进行一些自己的“前置设置”
+        onStart();//爬虫爬取工作之前调用，可以在子类重写此方法，然后进行一些自己的“前置设置”；重新的方法还有visit和shouldVisit
+
         while (true) {
-            List<WebURL> assignedURLs = new ArrayList<>(50);//根据种子地址找到的url地址
+            //存储根据种子地址找到的urlList
+            List<WebURL> assignedURLs = new ArrayList<>(50);
+            //现在的爬虫实例是否在等待新的url，如果所有的都没有在等待，则CrawlerController可以停止爬去工作了
             isWaitingForNewURLs = true;
-            frontier.getNextURLs(50, assignedURLs);//加锁方法
+
+            //fixme Frontier对象用于控制爬虫实例队列。下行代码用于从工作队列取出50个url放进第二个参数
+            frontier.getNextURLs(50, assignedURLs);
             isWaitingForNewURLs = false;
-            if (assignedURLs.isEmpty()) {
-                if (frontier.isFinished()) {
+            if (assignedURLs.isEmpty()) {//如果url列表为空，即工作队列为空
+                if (frontier.isFinished()) {//而且frontier已经结束，则停止run方法。
                     return;
                 }
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(3000);//工作队列为空，但是frontier没有结束，则睡一会，重新开始循环：从工作队列中去url，进行判定...
                 } catch (InterruptedException e) {
                     logger.error("Error occurred", e);
                 }
-            } else {
-                for (WebURL curURL : assignedURLs) {//遍历url
-                    if (myController.isShuttingDown()) {
+            } else {//如果url列表不为空
+                for (WebURL curURL : assignedURLs) { //遍历url
+                    if (myController.isShuttingDown()) {//为true表示爬虫需要停止工作
                         logger.info("Exiting because of controller shutdown.");
                         return;
                     }
-                    if (curURL != null) {
-                        curURL = handleUrlBeforeProcess(curURL);
-                        processPage(curURL);
+                    if (curURL != null) {//todo 经过多个判定，终于达到了调用工作线程的地方
+                        curURL = handleUrlBeforeProcess(curURL);//前置处理，比如去掉参数
+                        processPage(curURL);//fetcher包中的东西，执行请求并处理返回结果
                         frontier.setProcessed(curURL);
                     }
                 }
@@ -336,6 +354,7 @@ public class WebCrawler implements Runnable {
     }
 
     /**
+     * 检测所给的URL包含的链接是否应该加到爬去队列中，默认一直是true，子类可以实现具体的逻辑
      * Determine whether links found at the given URL should be added to the queue for crawling.
      * By default this method returns true always, but classes that extend WebCrawler can
      * override it in order to implement particular policies about which pages should be
@@ -367,39 +386,39 @@ public class WebCrawler implements Runnable {
     }
 
     /**
-     * 被run调用
+     * 被run调用，对目标url执行请求并处理返回结果...
      * @param curURL
      */
     private void processPage(WebURL curURL) {
-        PageFetchResult fetchResult = null;
+        PageFetchResult fetchResult = null;//执行请求的返回结果
         try {
-            if (curURL == null) {
-                return;
-            }
+            if (curURL == null) { return; }//如果目标url为null则结束函数的运行
 
-            fetchResult = pageFetcher.fetchPage(curURL);
+            fetchResult = pageFetcher.fetchPage(curURL);//结果主要包含Entity、Header链表、statusCode以及需要重定向的url等信息
+
             int statusCode = fetchResult.getStatusCode();
-            handlePageStatusCode(curURL, statusCode,
-                                 EnglishReasonPhraseCatalog.INSTANCE.getReason(statusCode,
-                                                                               Locale.ENGLISH));
-            // Finds the status reason for all known statuses
+            //对不同的状态码进行不同的处理，此方法被子类继承并重写逻辑
+            handlePageStatusCode(curURL, statusCode,EnglishReasonPhraseCatalog.INSTANCE.getReason(statusCode, Locale.ENGLISH));
 
+            //包含网页爬取和解析的数据,例如statusCode、内容、内容类型、重定向地址等
             Page page = new Page(curURL);
             page.setFetchResponseHeaders(fetchResult.getResponseHeaders());
             page.setStatusCode(statusCode);
-            if (statusCode < 200 ||
-                statusCode > 299) { // Not 2XX: 2XX status codes indicate success
+
+            // Not 2XX: 2XX status codes indicate success;返回结果不表示成功
+            if (statusCode < 200 || statusCode > 299) {
+                // is 3xx  重定向 todo 暂时不做这么复杂的考虑
                 if (statusCode == HttpStatus.SC_MOVED_PERMANENTLY ||
                     statusCode == HttpStatus.SC_MOVED_TEMPORARILY ||
                     statusCode == HttpStatus.SC_MULTIPLE_CHOICES ||
                     statusCode == HttpStatus.SC_SEE_OTHER ||
                     statusCode == HttpStatus.SC_TEMPORARY_REDIRECT ||
-                    statusCode == 308) { // is 3xx  todo
+                    statusCode == 308) {
                     // follow https://issues.apache.org/jira/browse/HTTPCORE-389
 
                     page.setRedirect(true);
 
-                    String movedToUrl = fetchResult.getMovedToUrl();
+                    String movedToUrl = fetchResult.getMovedToUrl();//重定向页面的设置在fetchPage(...)中被设置
                     if (movedToUrl == null) {
                         logger.warn("Unexpected error, URL: {} is redirected to NOTHING",
                                     curURL);
@@ -436,7 +455,7 @@ public class WebCrawler implements Runnable {
                                          webURL.getURL());
                         }
                     }
-                } else { // All other http codes other than 3xx & 200
+                } else { // All other http codes other than 3xx & 200；反正就是不成功
                     String description =
                         EnglishReasonPhraseCatalog.INSTANCE.getReason(fetchResult.getStatusCode(),
                                                                       Locale.ENGLISH); // Finds
@@ -448,8 +467,9 @@ public class WebCrawler implements Runnable {
                                            contentType, description);
                 }
 
-            } else { // if status code is 200
-                if (!curURL.getURL().equals(fetchResult.getFetchedUrl())) {
+            } else { // if status code is 200 fixme 爬取页面成功
+                if (!curURL.getURL().equals(fetchResult.getFetchedUrl())) {//？？如果爬取的是重定向的地址
+                    //这个url是否被访问过，结束方法的执行 todo 不是应该在发送请求之前查看其是否被访问过吗
                     if (docIdServer.isSeenBefore(fetchResult.getFetchedUrl())) {
                         logger.debug("Redirect page: {} has already been seen", curURL);
                         return;
@@ -458,70 +478,74 @@ public class WebCrawler implements Runnable {
                     curURL.setDocid(docIdServer.getNewDocID(fetchResult.getFetchedUrl()));
                 }
 
-                if (!fetchResult.fetchContent(page,
-                                              myController.getConfig().getMaxDownloadSize())) {
+                //改变了参数Page page，从爬取网页的HttpEntity中加载网页的内容
+                if (!fetchResult.fetchContent(page,myController.getConfig().getMaxDownloadSize())) {
                     throw new ContentFetchException();
                 }
 
+                //内容是否因为超过了可以接受的最大值而被删节。这里做一个提示而已
                 if (page.isTruncated()) {
-                    logger.warn(
-                        "Warning: unknown page size exceeded max-download-size, truncated to: " +
-                        "({}), at URL: {}",
+                    logger.warn("Warning: unknown page size exceeded max-download-size, truncated to: ({}), at URL: {}",
                         myController.getConfig().getMaxDownloadSize(), curURL.getURL());
                 }
 
+                //对网页进行解析，将相关数据放在参数page中。稍后进行展开讲
                 parser.parse(page, curURL.getURL());
 
-                if (shouldFollowLinksIn(page.getWebURL())) {
+                if (shouldFollowLinksIn(page.getWebURL())) {   //如果这个网址包含的链接应该被访问，方法默认返回TRUE。应该被子类重新
                     ParseData parseData = page.getParseData();
+                    //待爬取的网页链表
                     List<WebURL> toSchedule = new ArrayList<>();
                     int maxCrawlDepth = myController.getConfig().getMaxDepthOfCrawling();
-                    for (WebURL webURL : parseData.getOutgoingUrls()) {
+
+                    for (WebURL webURL : parseData.getOutgoingUrls()) {//遍历这个网址包含的链接
+                        //设置父类url信息
                         webURL.setParentDocid(curURL.getDocid());
                         webURL.setParentUrl(curURL.getURL());
+
                         int newdocid = docIdServer.getDocId(webURL.getURL());
-                        if (newdocid > 0) {
-                            // This is not the first time that this Url is visited. So, we set the
-                            // depth to a negative number.
+                        if (newdocid > 0) {//如果之前被访问过，否则时候-1
+                            // This is not the first time that this Url is visited. So, we set the depth to a negative number.
                             webURL.setDepth((short) -1);
                             webURL.setDocid(newdocid);
-                        } else {
-                            webURL.setDocid(-1);
+                        } else {//如果之前未被访问过
+                            webURL.setDocid(-1);//？？？ todo 未被访问过的都是-1啊
                             webURL.setDepth((short) (curURL.getDepth() + 1));
+
+                            //如果不限制深度或者现在深度小于最大深度
                             if ((maxCrawlDepth == -1) || (curURL.getDepth() < maxCrawlDepth)) {
-                                if (shouldVisit(page, webURL)) {
-                                    if (robotstxtServer.allows(webURL)) {
-                                        webURL.setDocid(docIdServer.getNewDocID(webURL.getURL()));
-                                        toSchedule.add(webURL);
+                                if (shouldVisit(page, webURL)) {//调用子类一般会重写的方法：如果应该访问这个页面
+                                    if (robotstxtServer.allows(webURL)) {//bad url的情况下会返回true。页面的内容是否允许被爬取
+                                        webURL.setDocid(docIdServer.getNewDocID(webURL.getURL()));//内部方法为同步方法
+                                        toSchedule.add(webURL);//添加到待爬取队列
                                     } else {
-                                        logger.debug(
+                                        logger.debug(//根据网站的robots政策不去爬去这个页面
                                             "Not visiting: {} as per the server's \"robots.txt\" " +
                                             "policy", webURL.getURL());
                                     }
                                 } else {
-                                    logger.debug(
+                                    logger.debug(//根据自定义的shouldVisit函数不爬去这个页面
                                         "Not visiting: {} as per your \"shouldVisit\" policy",
                                         webURL.getURL());
                                 }
-                            }
-                        }
-                    }
-                    frontier.scheduleAll(toSchedule);
+                            }//end of “允许深度”
+                        }//end of "如果之前未被访问过”
+                    }//end of 遍历所有网址
+                    frontier.scheduleAll(toSchedule);  //List<WebURL> toSchedule，待爬取网页
                 } else {
+                    //todo 为什么有了shouldVisit还有这个呢
                     logger.debug("Not looking for links in page {}, "
                                  + "as per your \"shouldFollowLinksInPage\" policy",
                                  page.getWebURL().getURL());
                 }
 
-                boolean noIndex = myController.getConfig().isRespectNoIndex() &&
+                boolean noIndex = myController.getConfig().isRespectNoIndex() &&//遵循“不索引”策略
                     page.getContentType() != null &&
-                    page.getContentType().contains("html") &&
-                    ((HtmlParseData)page.getParseData())
-                        .getMetaTagValue("robots").
-                        contains("noindex");
+                    page.getContentType().contains("html") &&//内容类型包含“html”
+                    ((HtmlParseData)page.getParseData()).getMetaTagValue("robots").contains("noindex");//内容包含noindex标识
 
-                if (!noIndex) {
-                    visit(page);
+                if (!noIndex) {//如果可以访问
+                    visit(page);//fixme 被子类重写的方法
                 }
             }
         } catch (PageBiggerThanMaxSizeException e) {
@@ -537,8 +561,8 @@ public class WebCrawler implements Runnable {
         } catch (Exception e) {
             onUnhandledException(curURL, e);
         } finally {
-            if (fetchResult != null) {
-                fetchResult.discardContentIfNotConsumed();
+            if (fetchResult != null) {//如果返回结果不为null
+                fetchResult.discardContentIfNotConsumed();//丢弃内容...
             }
         }
     }

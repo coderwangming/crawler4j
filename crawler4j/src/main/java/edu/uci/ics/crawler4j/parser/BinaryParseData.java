@@ -42,21 +42,27 @@ import org.slf4j.LoggerFactory;
 
 import edu.uci.ics.crawler4j.url.WebURL;
 
+/**
+ * 视频、图片和文件等内容都是二进制内容
+ */
 public class BinaryParseData implements ParseData {
 
     private static final Logger logger = LoggerFactory.getLogger(BinaryParseData.class);
-    private static final String DEFAULT_ENCODING = "UTF-8";
-    private static final String DEFAULT_OUTPUT_FORMAT = "html";
+    private static final String DEFAULT_ENCODING = "UTF-8";//默认编码
+    private static final String DEFAULT_OUTPUT_FORMAT = "html";//默认输出格式
 
+    //apache中的东西
     private static final Parser AUTO_DETECT_PARSER = new AutoDetectParser();
     private static final SAXTransformerFactory SAX_TRANSFORMER_FACTORY =
         (SAXTransformerFactory) TransformerFactory.newInstance();
-
     private final ParseContext context = new ParseContext();
-    private Set<WebURL> outgoingUrls = new HashSet<>();
-    private String html = null;
 
+    private Set<WebURL> outgoingUrls = new HashSet<>();//所实现接口包含的变量
+    private String html = null;//应该是包含了“二进制数据”
+
+    //构造函数
     public BinaryParseData() {
+        //将第二个参数作为作为给定接口（第一个参数）的实现加到上下文中
         context.set(Parser.class, AUTO_DETECT_PARSER);
     }
 
@@ -65,8 +71,9 @@ public class BinaryParseData implements ParseData {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         try {
-            TransformerHandler handler =
-                getTransformerHandler(outputStream, DEFAULT_OUTPUT_FORMAT, DEFAULT_ENCODING);
+//            返回一个“转换器处理器”使用给定的输出编码来序列化即将到来的事件为html或者xhtml。
+            TransformerHandler handler = getTransformerHandler(outputStream, DEFAULT_OUTPUT_FORMAT, DEFAULT_ENCODING);
+
             AUTO_DETECT_PARSER.parse(inputStream, handler, new Metadata(), context);
 
             // Hacking the following line to remove Tika's inserted DocType
@@ -78,13 +85,15 @@ public class BinaryParseData implements ParseData {
     }
 
     /**
+     * 返回一个“转换器处理器”使用给定的输出编码来序列化即将到来的事件为html或者xhtml。
      * Returns a transformer handler that serializes incoming SAX events to
      * XHTML or HTML (depending the given method) using the given output encoding.
      *
+     * @param out
+     * @param method
      * @param encoding output encoding, or <code>null</code> for the platform default
      */
-    private static TransformerHandler getTransformerHandler(OutputStream out, String method,
-                                                            String encoding)
+    private static TransformerHandler getTransformerHandler(OutputStream out, String method,String encoding)
         throws TransformerConfigurationException {
 
         TransformerHandler transformerHandler = SAX_TRANSFORMER_FACTORY.newTransformerHandler();

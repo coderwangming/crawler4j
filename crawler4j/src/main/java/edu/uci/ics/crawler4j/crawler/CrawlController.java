@@ -66,7 +66,7 @@ public class CrawlController extends Configurable {
     protected boolean finished;
 
     /**
-     * 爬去的session值是否设置成了“shutdown”，爬虫线程会监视这个值，如果TRUE则爬虫停止工作。
+     * 爬取的session值是否设置成了“shutdown”，爬虫线程会监视这个值，如果TRUE则爬虫停止工作。
      * Is the crawling session set to 'shutdown'. Crawler threads monitor this
      * flag and when it is set they will no longer process new pages.
      */

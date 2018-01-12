@@ -35,7 +35,7 @@ public class Net {
     }
 
     /**
-     *
+     * 从一个字符集中抽取出网址列表，并返回
      * @param input
      * @return
      */

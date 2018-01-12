@@ -1,4 +1,4 @@
-package edu.uci.ics.crawler4j.parser;
+package edu.uci.ics.crawler4j.crawler.exceptions;
 
 /**
  * Created by Avi on 8/19/2014.

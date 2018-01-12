@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 import edu.uci.ics.crawler4j.crawler.Page;
 
 /**
- * 包含爬取的“状态码”、“entity”、“url“等相关数据
+ * 包含爬取的“状态码”、“entity”、“url“等相关数据。数据还要存放在Page对象中
  * @author Yasser Ganjisaffar
  */
 public class PageFetchResult {
@@ -40,6 +40,43 @@ public class PageFetchResult {
     protected Header[] responseHeaders = null;
     protected String fetchedUrl = null;
     protected String movedToUrl = null;
+
+    /**
+     * 改变了参数Page page，从爬取网页的HttpEntity中加载网页的内容
+     * @param page
+     * @param maxBytes
+     * @return
+     */
+    public boolean fetchContent(Page page, int maxBytes) {
+        try {
+            //load()：Loads the content of this page from a fetched HttpEntity
+            page.load(entity, maxBytes);
+            page.setFetchResponseHeaders(responseHeaders);
+            return true;
+        } catch (Exception e) {
+            logger.info("Exception while fetching content for: {} [{}]", page.getWebURL().getURL(),
+                    e.getMessage());
+        }
+        return false;
+    }
+
+    /**
+     *
+     */
+    public void discardContentIfNotConsumed() {
+        try {
+            if (entity != null) {
+                EntityUtils.consume(entity);//entity被完全“消耗”
+            }
+        } catch (IOException ignored) {
+            // We can EOFException (extends IOException) exception. It can happen on compressed
+            // streams which are not
+            // repeatable
+            // We can ignore this exception. It can happen if the stream is closed.
+        } catch (Exception e) {
+            logger.warn("Unexpected error occurred while trying to discard content", e);
+        }
+    }
 
     public int getStatusCode() {
         return statusCode;
@@ -71,33 +108,6 @@ public class PageFetchResult {
 
     public void setFetchedUrl(String fetchedUrl) {
         this.fetchedUrl = fetchedUrl;
-    }
-
-    public boolean fetchContent(Page page, int maxBytes) {
-        try {
-            page.load(entity, maxBytes);
-            page.setFetchResponseHeaders(responseHeaders);
-            return true;
-        } catch (Exception e) {
-            logger.info("Exception while fetching content for: {} [{}]", page.getWebURL().getURL(),
-                        e.getMessage());
-        }
-        return false;
-    }
-
-    public void discardContentIfNotConsumed() {
-        try {
-            if (entity != null) {
-                EntityUtils.consume(entity);
-            }
-        } catch (IOException ignored) {
-            // We can EOFException (extends IOException) exception. It can happen on compressed
-            // streams which are not
-            // repeatable
-            // We can ignore this exception. It can happen if the stream is closed.
-        } catch (Exception e) {
-            logger.warn("Unexpected error occurred while trying to discard content", e);
-        }
     }
 
     public String getMovedToUrl() {

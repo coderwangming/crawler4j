@@ -22,11 +22,12 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+//五个爬虫工具类的东西
 import org.apache.http.Header;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.conn.DnsResolver;
 import org.apache.http.impl.conn.SystemDefaultDnsResolver;
-import org.apache.http.message.BasicHeader;
 
 import edu.uci.ics.crawler4j.crawler.authentication.AuthInfo;
 
@@ -79,6 +80,7 @@ public class CrawlConfig {
     private int politenessDelay = 200;
 
     /**
+     * 是否应该爬去https页面
      * Should we also crawl https pages?
      */
     private boolean includeHttpsPages = true;
@@ -90,16 +92,19 @@ public class CrawlConfig {
     private boolean includeBinaryContentInCrawling = false;
 
     /**
+     * 我们是否应该处理二进制内容
      * Should we process binary content such as image, audio, ... using TIKA?
      */
     private boolean processBinaryContentInCrawling = false;
 
     /**
+     * 每个主机的最大连接数
      * Maximum Connections per host
      */
     private int maxConnectionsPerHost = 100;
 
     /**
+     * 最大连接数
      * Maximum total connections
      */
     private int maxTotalConnections = 100;
@@ -120,6 +125,7 @@ public class CrawlConfig {
     private int maxOutgoingLinksToFollow = 5000;
 
     /**
+     * 可以爬去的最大网页大小，大于这个值就不在进行爬去了。1048576=1024*1024
      * Max allowed size of a page. Pages larger than this size will not be
      * fetched.
      */
@@ -163,18 +169,21 @@ public class CrawlConfig {
     private int cleanupDelaySeconds = 10;
 
     /**
+     * 指定爬虫使用的代理服务器；
      * If crawler should run behind a proxy, this parameter can be used for
      * specifying the proxy host.
      */
     private String proxyHost = null;
 
     /**
+     * 代理端口
      * If crawler should run behind a proxy, this parameter can be used for
      * specifying the proxy port.
      */
     private int proxyPort = 80;
 
     /**
+     * 代理服务器用户名
      * If crawler should run behind a proxy and user/pass is needed for
      * authentication in proxy, this parameter can be used for specifying the
      * username.
@@ -182,6 +191,7 @@ public class CrawlConfig {
     private String proxyUsername = null;
 
     /**
+     * 代理服务器用户密码
      * If crawler should run behind a proxy and user/pass is needed for
      * authentication in proxy, this parameter can be used for specifying the
      * password.
@@ -189,11 +199,13 @@ public class CrawlConfig {
     private String proxyPassword = null;
 
     /**
+     * 爬虫可能需要的的验证信息：AuthInfo接口自定义在authentication类中
      * List of possible authentications needed by crawler
      */
     private List<AuthInfo> authInfos;
 
     /**
+     * Cookie策略
      * Cookie policy
      */
     private String cookiePolicy = CookieSpecs.STANDARD;
@@ -204,6 +216,7 @@ public class CrawlConfig {
     private boolean respectNoFollow = true;
 
     /**
+     * 是否遵循“不索引”策略
      * Whether to honor "noindex" flag
      */
     private boolean respectNoIndex = true;
@@ -221,6 +234,7 @@ public class CrawlConfig {
         return dnsResolver;
     }
 
+    //获取系统默认的DNS解析器
     private DnsResolver dnsResolver = new SystemDefaultDnsResolver();
 
     /**
@@ -326,6 +340,8 @@ public class CrawlConfig {
     }
 
     /**
+     * 设置defaultHeaders：创建指向参数defaultHeaders的拷贝<p></p>
+     * BasicHeader类是Header类的一种实现
      * Set the default header collection (creating copies of the provided headers).
      */
     public void setDefaultHeaders(Collection<? extends Header> defaultHeaders) {
@@ -375,6 +391,10 @@ public class CrawlConfig {
         this.includeBinaryContentInCrawling = includeBinaryContentInCrawling;
     }
 
+    /**
+     * 我们是否应该处理二进制内容
+     * @return
+     */
     public boolean isProcessBinaryContentInCrawling() {
         return processBinaryContentInCrawling;
     }

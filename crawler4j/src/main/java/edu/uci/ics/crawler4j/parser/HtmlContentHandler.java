@@ -26,9 +26,13 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+/**
+ * html内容处理器
+ * todo 未做深究，估计又是HtmlParseData中的东西
+ */
 public class HtmlContentHandler extends DefaultHandler {
 
-    private static final int MAX_ANCHOR_LENGTH = 100;
+    private static final int MAX_ANCHOR_LENGTH = 100;//最大锚长度
 
     private enum Element {
         A,
@@ -44,9 +48,15 @@ public class HtmlContentHandler extends DefaultHandler {
         SCRIPT
     }
 
+    /**
+     * 私有内部类，作用有两个：
+     *      1.静态代码块中代码初始化HashMap类变量，将枚举类Element中枚举值小写及枚举值设置为对应的key-value对；
+     *      2.Element getElement(String name)返回对应名称的枚举值
+     */
     private static class HtmlFactory {
         private static final Map<String, Element> name2Element;
 
+        //将枚举类Element中的数据放进name2Element中，key是枚举值的小写，value就是枚举值
         static {
             name2Element = new HashMap<>();
             for (Element element : Element.values()) {
@@ -54,13 +64,18 @@ public class HtmlContentHandler extends DefaultHandler {
             }
         }
 
+        /**
+         * 根据枚举值名称(对应小写)，返回相应的枚举值
+         * @param name
+         * @return
+         */
         public static Element getElement(String name) {
             return name2Element.get(name);
         }
     }
 
     private String base;
-    private String metaRefresh;
+    private String metaRefresh;//刷新标识
     private String metaLocation;
     private final Map<String, String> metaTags = new HashMap<>();
 
@@ -73,6 +88,7 @@ public class HtmlContentHandler extends DefaultHandler {
     private boolean anchorFlag = false;
     private final StringBuilder anchorText = new StringBuilder();
 
+    //构造函数：初始化三个变量
     public HtmlContentHandler() {
         isWithinBodyElement = false;
         bodyText = new StringBuilder();
@@ -139,6 +155,11 @@ public class HtmlContentHandler extends DefaultHandler {
         }
     }
 
+    /**
+     * 添加url到类变量List<ExtractedUrlAnchorPair> outgoingUrls;
+     * @param href
+     * @param tag
+     */
     private void addToOutgoingUrls(String href, String tag) {
         curUrl = new ExtractedUrlAnchorPair();
         curUrl.setHref(href);
@@ -146,6 +167,12 @@ public class HtmlContentHandler extends DefaultHandler {
         outgoingUrls.add(curUrl);
     }
 
+    /**
+     * 添加url到类变量List<ExtractedUrlAnchorPair> outgoingUrls;
+     * @param href
+     * @param tag
+     * @param attributes
+     */
     private void addToOutgoingUrls(String href, String tag, Attributes attributes) {
         curUrl = new ExtractedUrlAnchorPair();
         curUrl.setHref(href);

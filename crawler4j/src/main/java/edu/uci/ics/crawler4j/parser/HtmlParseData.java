@@ -24,10 +24,11 @@ import edu.uci.ics.crawler4j.url.WebURL;
 
 public class HtmlParseData implements ParseData {
 
+    //html、文本和标题
     private String html;
     private String text;
     private String title;
-    private Map<String, String> metaTags;
+    private Map<String, String> metaTags;//元标签
 
     private Set<WebURL> outgoingUrls;
 
