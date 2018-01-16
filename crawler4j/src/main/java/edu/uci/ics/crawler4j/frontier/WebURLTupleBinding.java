@@ -28,6 +28,11 @@ import edu.uci.ics.crawler4j.url.WebURL;
  */
 public class WebURLTupleBinding extends TupleBinding<WebURL> {
 
+    /**
+     * 从 input 条目构造一个 key 或者数据对象
+     * @param input
+     * @return
+     */
     @Override
     public WebURL entryToObject(TupleInput input) {
         WebURL webURL = new WebURL();
@@ -41,6 +46,12 @@ public class WebURLTupleBinding extends TupleBinding<WebURL> {
         return webURL;
     }
 
+    /**
+     *  Converts a key or data object to a tuple entry
+     *  <p></p>讲一个key或者数据对象转换为元组条目
+     * @param url
+     * @param output
+     */
     @Override
     public void objectToEntry(WebURL url, TupleOutput output) {
         output.writeString(url.getURL());

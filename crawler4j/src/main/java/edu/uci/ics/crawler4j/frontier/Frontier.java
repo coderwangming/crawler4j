@@ -136,7 +136,8 @@ public class Frontier extends Configurable {
                     return;
                 }
                 try {
-                    List<WebURL> curResults = workQueues.get(max);//去除工作队列中的url
+                    //取出工作队列中数量为max的url，队列中url小于max则全部返回
+                    List<WebURL> curResults = workQueues.get(max);
                     workQueues.delete(curResults.size());//将取出的url从工作队列中删除
                     if (inProcessPages != null) {
                         for (WebURL curPage : curResults) {//遍历工作队列中取出的url，并一一放进“正在处理队列"
