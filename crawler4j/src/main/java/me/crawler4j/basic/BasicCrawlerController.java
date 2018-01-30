@@ -23,16 +23,18 @@ public class BasicCrawlerController {
         CrawlConfig config=new CrawlConfig();
         config.setCrawlStorageFolder(crawlStorageFolder);
         //fixme: how many requests are send per second.
-        config.setPolitenessDelay(1000);
-        config.setMaxDepthOfCrawling(5);
-        config.setMaxPagesToFetch(1000);//default -1 for unlimited number
+        config.setPolitenessDelay(100);
+        config.setMaxDepthOfCrawling(10);
+//        config.setMaxPagesToFetch(1000);//default -1 for unlimited number
         config.setIncludeBinaryContentInCrawling(false);
-        config.setResumableCrawling(false);
+        config.setResumableCrawling(true);
 
         //initiate the controller of basicCrawl
         PageFetcher pageFetcher=new PageFetcher(config);
+
         RobotstxtConfig robotstxtConfig=new RobotstxtConfig();
         RobotstxtServer robotstxtServer=new RobotstxtServer(robotstxtConfig,pageFetcher);
+
         CrawlController controller=new CrawlController(config,pageFetcher,robotstxtServer);
 
         controller.addSeed("http://www.mtime.com/top/movie/top100/");

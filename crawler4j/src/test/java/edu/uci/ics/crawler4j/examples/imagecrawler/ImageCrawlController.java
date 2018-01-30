@@ -40,33 +40,32 @@ public class ImageCrawlController {
 //            logger.info("\t storageFolder (a folder for storing downloaded images)");
 //            return;
 //        }
+        System.out.println("当前线程数量："+Thread.activeCount());
 
         String rootFolder = "/data/crawler/image/rootFolder/";
-        int numberOfCrawlers = 1;
+        int numberOfCrawlers = 2;
         String storageFolder = "/data/crawler/image/storageFolder/";
 
         CrawlConfig config = new CrawlConfig();
-
         config.setCrawlStorageFolder(rootFolder);
-
-    /*
+    /*图片就是二进制内容
      * Since images are binary content, we need to set this parameter to
      * true to make sure they are included in the crawl.
      */
         config.setIncludeBinaryContentInCrawling(true);
 
-        String[] crawlDomains = {"http://www.mtime.com/"};
+        String[] crawlDomains = {"https://www.zhihu.com/question/24553465/"};
 
-        PageFetcher pageFetcher = new PageFetcher(config);
+        PageFetcher pageFetcher = new PageFetcher(config);//fixme 新启了一个线程：IdleConnectionMonitorThread
         RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
         RobotstxtServer robotstxtServer = new RobotstxtServer(robotstxtConfig, pageFetcher);
-        CrawlController controller = new CrawlController(config, pageFetcher, robotstxtServer);
+        CrawlController controller = new CrawlController(config, pageFetcher, robotstxtServer);//fixme 新启了三个线程
         for (String domain : crawlDomains) {
             controller.addSeed(domain);
         }
 
         ImageCrawler.configure(crawlDomains, storageFolder);
-
+        System.out.println("当前线程数量："+Thread.activeCount());
         controller.start(ImageCrawler.class, numberOfCrawlers);
     }
 }

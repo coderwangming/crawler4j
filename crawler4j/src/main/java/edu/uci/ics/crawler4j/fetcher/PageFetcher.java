@@ -96,7 +96,7 @@ public class PageFetcher extends Configurable {
      * @param config
      */
     public PageFetcher(CrawlConfig config) {
-        super(config);//this.config=config;
+        super(config);//如果少了这一句，则默认调用父类无参构造函数—父类没有，编译报错；
 
         RequestConfig requestConfig = RequestConfig.custom()
                                                    .setExpectContinueEnabled(false)
@@ -170,7 +170,7 @@ public class PageFetcher extends Configurable {
         if (connectionMonitorThread == null) {
             connectionMonitorThread = new IdleConnectionMonitorThread(connectionManager);
         }
-        connectionMonitorThread.start();
+        connectionMonitorThread.start();// fixme 启动“连接监视器”线程
     }
 
     private void doAuthetication(List<AuthInfo> authInfos) {
@@ -365,7 +365,7 @@ public class PageFetcher extends Configurable {
 //    protected IdleConnectionMonitorThread connectionMonitorThread = null;//空闲链接监视线程 todo 自定义类
     public synchronized void shutDown() {
         if (connectionMonitorThread != null) {
-            connectionManager.shutdown();
+            connectionManager.shutdown();//关闭连接管理器，释放其所有资源，包括其所有的链接
             connectionMonitorThread.shutdown();
         }
     }

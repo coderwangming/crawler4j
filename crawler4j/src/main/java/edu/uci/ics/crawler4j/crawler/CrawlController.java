@@ -54,7 +54,7 @@ public class CrawlController extends Configurable {
 
     /**
      * 一旦爬取线程结束，控制器收集爬虫线程的本地数据并将它们存放在此List中
-     * Once the crawling session finishes the controller collects the local data
+     * <p></p>Once the crawling session finishes the controller collects the local data
      * of the crawler threads and stores them in this List.
      */
     protected List<Object> crawlersLocalData = new ArrayList<>();
@@ -177,7 +177,7 @@ public class CrawlController extends Configurable {
      * @param <T> Your class extending WebCrawler
      */
     public <T extends WebCrawler> void start(Class<T> clazz, int numberOfCrawlers) {
-        //传参进另一个start方法，参数分别是“指定爬虫类型的”工厂，爬虫数量，isBlocking=true
+        //传参进另一个start方法，参数分别是：默认爬虫工厂（工厂类变量是Class<工厂产品对象>），爬虫数量，isBlocking=true
         this.start(new DefaultWebCrawlerFactory<>(clazz), numberOfCrawlers, true);
     }
 
@@ -234,6 +234,8 @@ public class CrawlController extends Configurable {
             final List<Thread> threads = new ArrayList<>();//存放开启的线程的list
             final List<T> crawlers = new ArrayList<>();//工作的爬虫序列
 
+            System.out.println("当前线程数量："+Thread.activeCount());
+
             for (int i = 1; i <= numberOfCrawlers; i++) {
                 T crawler = crawlerFactory.newInstance();//工厂模式:创建一个指定类型的爬虫对象
                 Thread thread = new Thread(crawler, "Crawler " + i);//为线程注入Runnable的实现，并设置命名
@@ -252,6 +254,7 @@ public class CrawlController extends Configurable {
             final CrawlController controller = this;
             final CrawlConfig config = this.getConfig();
 
+            System.out.println("当前线程数量："+Thread.activeCount());
             //监视器线程，没看懂
             Thread monitorThread = new Thread(new Runnable() {
 
@@ -356,6 +359,7 @@ public class CrawlController extends Configurable {
 
             monitorThread.start();
 
+            System.out.println("当前线程数量："+Thread.activeCount());
             if (isBlocking) {
                 waitUntilFinish();
             }

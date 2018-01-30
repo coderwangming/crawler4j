@@ -41,15 +41,23 @@ import edu.uci.ics.crawler4j.url.WebURL;
  */
 public class ImageCrawler extends WebCrawler {
 
+    //二进制文件后缀
     private static final Pattern filters = Pattern.compile(
         ".*(\\.(css|js|mid|mp2|mp3|mp4|wav|avi|mov|mpeg|ram|m4v|pdf" +
         "|rm|smil|wmv|swf|wma|zip|rar|gz))$");
 
+    //图片文件后缀
     private static final Pattern imgPatterns = Pattern.compile(".*(\\.(bmp|gif|jpe?g|png|tiff?))$");
 
+    //存储文件夹和爬去的域名
     private static File storageFolder;
     private static String[] crawlDomains;
 
+    /**
+     * 设置爬去的域名和爬去数据放进的文件夹
+     * @param domain
+     * @param storageFolderName
+     */
     public static void configure(String[] domain, String storageFolderName) {
         crawlDomains = domain;
 
@@ -59,21 +67,31 @@ public class ImageCrawler extends WebCrawler {
         }
     }
 
+    /**
+     * 是否应该爬去这个页面
+     * @param referringPage
+     *           The Page in which this url was found.
+     * @param url
+     *            the url which we are interested to know whether it should be
+     *            included in the crawl or not.
+     * @return
+     */
     @Override
     public boolean shouldVisit(Page referringPage, WebURL url) {
-        String href = url.getURL().toLowerCase();
-        if (filters.matcher(href).matches()) {
-            return false;
-        }
+        String href = url.getURL().toLowerCase();//将网址小写化
 
-        if (imgPatterns.matcher(href).matches()) {
+        if (imgPatterns.matcher(href).matches()) {//图片，则TRUE，爬取
             return true;
         }
 
-        for (String domain : crawlDomains) {
+        for (String domain : crawlDomains) {//是想要爬去的域名，TRUE
             if (href.startsWith(domain)) {
                 return true;
             }
+        }
+
+        if (filters.matcher(href).matches()) {//二进制，则FALSE
+            return false;
         }
         return false;
     }
@@ -83,9 +101,9 @@ public class ImageCrawler extends WebCrawler {
         String url = page.getWebURL().getURL();
 
         // We are only interested in processing images which are bigger than 10k
-        if (!imgPatterns.matcher(url).matches() ||
-            !((page.getParseData() instanceof BinaryParseData) ||
-              (page.getContentData().length < (10 * 1024)))) {
+        if (!imgPatterns.matcher(url).matches() ||//如果不是图片后缀
+            !((page.getParseData() instanceof BinaryParseData) ||//或者不是二进制文件
+              (page.getContentData().length < (10 * 1024)))) {//或者大小小于10k（即1024*10byte）
             return;
         }
 
@@ -96,8 +114,9 @@ public class ImageCrawler extends WebCrawler {
         // store image
         String filename = storageFolder.getAbsolutePath() + "/" + hashedName;
         try {
+            //用所给的字符流重写所给的目的文件
             Files.write(page.getContentData(), new File(filename));
-            logger.info("Stored: {}", url);
+//            logger.info("Stored: {}", url);
         } catch (IOException iox) {
             logger.error("Failed to write file: " + filename, iox);
         }

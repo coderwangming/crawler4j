@@ -40,7 +40,7 @@ public class IdleConnectionMonitorThread extends Thread {
         try {
             while (!shutdown) {
                 synchronized (this) {
-                    wait(5000);//？等待？
+                    wait(5000);//fixme 在其他线程调用此方法的notify()或者notifyAll()时，等待最长X毫秒
                     // Close expired connections
                     connMgr.closeExpiredConnections();//关闭过期的链接
                     // Optionally, close connections that have been idle longer than 30 sec
@@ -56,7 +56,7 @@ public class IdleConnectionMonitorThread extends Thread {
     public void shutdown() {
         shutdown = true;
         synchronized (this) {
-            notifyAll();
+            notifyAll();//fixme 唤醒此对象监视器上的所有进程
         }
     }
 }

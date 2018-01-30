@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  */
 public class BasicCrawler extends WebCrawler {
 
-    private static final Pattern IMAGE_EXTENSIONS=Pattern.compile(".*\\.(bmp|gif|jpg|png)$");
+//    private static final Pattern IMAGE_EXTENSIONS=Pattern.compile(".*\\.(bmp|gif|jpg|png)$");
 
 
     /**
@@ -31,21 +31,15 @@ public class BasicCrawler extends WebCrawler {
     @Override
     public boolean shouldVisit(Page referringPage, WebURL url) {
         String href=url.getURL().toLowerCase();
-        if(IMAGE_EXTENSIONS.matcher(url.getURL()).matches()){
-            return false;
-        }
-        return href.startsWith("http://www.mtime.com/");
+//        if(IMAGE_EXTENSIONS.matcher(url.getURL()).matches()){
+//            return false;
+//        }
+        return (href.startsWith("http://www.mtime.com/top/movie/top100/")||href.startsWith("http://movie.mtime.com"));
     }
 
     @Override
     public void visit(Page page) {
-        Header [] responseHeaders=page.getFetchResponseHeaders();
-        if(responseHeaders!=null){
-           logger.debug("Response headers:");
-            for (Header header:responseHeaders) {
-                logger.debug("\t{}:{}",header.getName(),header.getValue());
-            }
-        }
-        logger.debug("================");
+        System.out.println(page.getWebURL().getURL());
+        System.out.println(page.getContentData());
     }
 }
